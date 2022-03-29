@@ -1,7 +1,11 @@
 # C-Practice
 
-- A basic print line function.
-- Data structures:
-    - Lists/arrays
-    - Dictionaries
+- [x] A basic print line function.
+- [ ] Data structures:
+    - [x] Lists/arrays
+    - [ ] Linked lists
+    - [x] Dictionaries
+    - [ ] Hashmaps
     - Trees
+    - Graphs
+- [ ] Unit tests
