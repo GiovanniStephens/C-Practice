@@ -6,10 +6,21 @@
     - [ ] Linked lists
     - [x] Dictionaries
     - [ ] Hashmaps
-    - Trees
-    - Graphs
+    - [ ] Trees
+    - [ ] Graphs
+    - [ ] Heaps
 - [ ] String operations
     - [x] string objects
     - [x] reversing a string
+    - [ ] string concatenation
+    - [ ] string formatting
+    - [ ] string methods
 - [ ] File operations
+    - [ ] reading a file
+    - [ ] writing a file
+    - [ ] appending to a file
+    - [ ] reading a file line by line
+    - [ ] reading a file line by line and printing
+    - [ ] reading a file line by line and printing with a counter
 - [ ] Unit tests
+- [ ] Word2Vec implementation
