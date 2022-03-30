@@ -8,4 +8,8 @@
     - [ ] Hashmaps
     - Trees
     - Graphs
+- [ ] String operations
+    - [x] string objects
+    - [x] reversing a string
+- [ ] File operations
 - [ ] Unit tests
