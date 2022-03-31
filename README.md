@@ -12,7 +12,7 @@
 - [ ] String operations
     - [x] string objects
     - [x] reversing a string
-    - [ ] string concatenation
+    - [x] string concatenation
     - [ ] string formatting
     - [ ] string methods
 - [ ] File operations
