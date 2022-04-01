@@ -3,12 +3,21 @@
 - [x] A basic print line function.
 - [ ] Data structures:
     - [x] Lists/arrays
-    - [ ] Linked lists
+    - [x] <s>Linked lists</s> vectors
     - [x] Dictionaries
-    - [ ] Hashmaps
+- [ ] Data structures from scratch:
+    - [ ] Queues
+    - [ ] Stacks
     - [ ] Trees
     - [ ] Graphs
     - [ ] Heaps
+- [ ] Algorithms:
+    - [ ] Sorting
+    - [ ] Searching
+    - [ ] Greedy
+    - [ ] Dynamic programming
+    - [ ] Backtracking
+    - [ ] Recursion
 - [x] String operations
     - [x] string objects
     - [x] reversing a string
