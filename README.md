@@ -9,7 +9,7 @@
     - [ ] Trees
     - [ ] Graphs
     - [ ] Heaps
-- [ ] String operations
+- [x] String operations
     - [x] string objects
     - [x] reversing a string
     - [x] string concatenation
