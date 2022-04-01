@@ -13,7 +13,7 @@
     - [x] string objects
     - [x] reversing a string
     - [x] string concatenation
-    - [ ] string formatting
+    - [x] string formatting
     - [ ] string methods
 - [ ] File operations
     - [ ] reading a file
@@ -24,3 +24,4 @@
     - [ ] reading a file line by line and printing with a counter
 - [ ] Unit tests
 - [ ] Word2Vec implementation
+- [ ] Declaring functions
