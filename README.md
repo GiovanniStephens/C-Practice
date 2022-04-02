@@ -11,6 +11,7 @@
     - [ ] Trees
     - [ ] Graphs
     - [ ] Heaps
+    - [ ] Hash tables
 - [ ] Algorithms:
     - [ ] Sorting
     - [ ] Searching
