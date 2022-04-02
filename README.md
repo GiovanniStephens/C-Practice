@@ -1,12 +1,12 @@
 # C-Practice
 
 - [x] A basic print line function.
-- [ ] Data structures:
+- [x] Data structures:
     - [x] Lists/arrays
     - [x] <s>Linked lists</s> vectors
     - [x] Dictionaries
 - [ ] Data structures from scratch:
-    - [ ] Queues
+    - [x] Queues
     - [ ] Stacks
     - [ ] Trees
     - [ ] Graphs
