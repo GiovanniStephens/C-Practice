@@ -7,7 +7,7 @@
     - [x] Dictionaries
 - [ ] Data structures from scratch:
     - [x] Queues
-    - [ ] Stacks
+    - [x] Stacks
     - [ ] Trees
     - [ ] Graphs
     - [ ] Heaps
