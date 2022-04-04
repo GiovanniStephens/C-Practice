@@ -8,6 +8,7 @@
 - [ ] Data structures from scratch:
     - [x] Queues
     - [x] Stacks
+    - [ ] Single linked lists
     - [ ] Trees
     - [ ] Graphs
     - [ ] Heaps
