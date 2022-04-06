@@ -9,6 +9,7 @@
     - [x] Queues
     - [x] Stacks
     - [x] Single linked lists
+    - [ ] Double linked lists
     - [ ] Trees
     - [ ] Graphs
     - [ ] Heaps
@@ -39,7 +40,7 @@
     - [ ] pointers to arrays
     - [x] pointers to strings
     - [ ] pointers to dictionaries
-    - [ ] pointers to lists
+    - [x] pointers to lists
     - [ ] pointers to vectors
 - [ ] Unit tests
 - [ ] Word2Vec implementation
