@@ -11,12 +11,14 @@
 
 int main() {
     std::string name = "Giovanni";
-    // Print the address to the name variable
     std::cout << "The address of the name variable is: " << &name << std::endl;
-    // Make a pointer to the name variable
     std::string *name_pointer = &name;
-    // Print the address of the name_pointer variable
     std::cout << "The address of the name_pointer pointer is: " << &name_pointer << std::endl;
-    // Print the address of the name_pointer variable
     std::cout << "The address of the name_pointer variable is: " << name_pointer << std::endl;
+    std::cout << "The value that the name_pointer points to is: " << *name_pointer << std::endl;
+
+    std::string *name_pointer2 = name_pointer;
+    std::cout << "The address of the name_pointer2 pointer is: " << &name_pointer2 << std::endl;
+    std::cout << "The address of the name_pointer2 variable is: " << name_pointer2 << std::endl;
+    std::cout << "The value that the name_pointer2 points to is: " << *name_pointer2 << std::endl;
 }
