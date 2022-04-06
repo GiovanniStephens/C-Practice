@@ -90,7 +90,7 @@ void linked_list::remove(int data) {
                 previous->setNext(current->getNext());
             }
             this->count--;
-            delete current;
+            //delete current;
             break;
         }
         previous = current;
@@ -119,7 +119,7 @@ int main() {
     list->add(4);
     list->add(5);
     list->print();
-    //list->remove(3); // Screws up the tail. (Need to fix)
+    list->remove(3);
     list->print();
     std::cout << "Size: " << list->size() << std::endl;
     delete list;
