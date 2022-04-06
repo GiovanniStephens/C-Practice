@@ -8,7 +8,7 @@
 - [ ] Data structures from scratch:
     - [x] Queues
     - [x] Stacks
-    - [ ] Single linked lists
+    - [x] Single linked lists
     - [ ] Trees
     - [ ] Graphs
     - [ ] Heaps
@@ -35,9 +35,9 @@
     - [ ] reading a file line by line and printing with a counter
 - [ ] Pointers
     - [ ] pointers to functions
-    - [ ] pointers to objects
+    - [x] pointers to objects
     - [ ] pointers to arrays
-    - [ ] pointers to strings
+    - [x] pointers to strings
     - [ ] pointers to dictionaries
     - [ ] pointers to lists
     - [ ] pointers to vectors
