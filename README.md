@@ -31,9 +31,9 @@
     - [x] reading a file
     - [x] writing a file
     - [ ] appending to a file
-    - [ ] reading a file line by line
-    - [ ] reading a file line by line and printing
-    - [ ] reading a file line by line and printing with a counter
+    - [x] reading a file line by line
+    - [x] reading a file line by line and printing
+    - [ ] <s> reading a file line by line and printing with a counter</s> (won't do)
 - [ ] Pointers
     - [ ] pointers to functions
     - [x] pointers to objects
