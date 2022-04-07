@@ -33,3 +33,12 @@
 
 # VS Code config files
 .vscode/*
+
+# Text files
+*.txt
+*.doc
+*.docx
+*.log
+*.csv
+*.ini
+*.cfg
