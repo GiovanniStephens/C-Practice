@@ -1,4 +1,5 @@
-/** This program write a text file.
+/** This program writes a text file.
+ * It is purely for learning purposes.
  *
  * Author: Giovanni Stephens
  * Date:   07/04/2022
