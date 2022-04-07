@@ -28,8 +28,8 @@
     - [x] string formatting
     - [x] string methods
 - [ ] File operations
-    - [ ] reading a file
-    - [ ] writing a file
+    - [x] reading a file
+    - [x] writing a file
     - [ ] appending to a file
     - [ ] reading a file line by line
     - [ ] reading a file line by line and printing
