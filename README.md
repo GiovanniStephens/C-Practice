@@ -10,7 +10,7 @@
     - [x] Stacks
     - [x] Single linked lists
     - [ ] Double linked lists
-    - [ ] Trees
+    - [ ] Trees (Binary search tree BST)
     - [ ] Graphs
     - [ ] Heaps
     - [ ] Hash tables
