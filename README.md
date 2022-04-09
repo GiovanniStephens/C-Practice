@@ -10,7 +10,7 @@
     - [x] Stacks
     - [x] Single linked lists
     - [ ] Double linked lists
-    - [ ] Trees (Binary search tree BST)
+    - [ ] Trees (Binary search tree BST) (in progress)
     - [ ] Graphs
     - [ ] Heaps
     - [ ] Hash tables
@@ -27,10 +27,10 @@
     - [x] string concatenation
     - [x] string formatting
     - [x] string methods
-- [ ] File operations
+- [x] File operations
     - [x] reading a file
     - [x] writing a file
-    - [ ] appending to a file
+    - [x] appending to a file
     - [x] reading a file line by line
     - [x] reading a file line by line and printing
     - [ ] <s> reading a file line by line and printing with a counter</s> (won't do)
