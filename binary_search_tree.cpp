@@ -21,9 +21,9 @@ public:
     void setLeft(Node* left);   // Done
     void setRight(Node* right); // Done
     void insert(int value);     // Done
-    void remove(int value);
+    Node* remove(Node* root, int value);
     Node* search(int value);
-    void print();               // Not sure how to print nicely
+    void print(Node* root);     // Not sure how to print nicely
 };
 
 // Constructor
@@ -88,44 +88,54 @@ void Node::insert(int value){
     }
 }
 
-// Incomplte
-// void Node::remove(int value){
-//     if(value < this->value){
-//         if(this->left != NULL){
-//             this->left->remove(value);
-//         }
-//     } else if(value > this->value){
-//         if(this->right != NULL){
-//             this->right->remove(value);
-//         }
-//     } else {
-//         if(this->left == NULL && this->right == NULL){
-//             delete this;
-//         } else if(this->left == NULL){
-//             Node* temp = this->right;
-//             delete this;
-//             this = temp;
-//         } else if(this->right == NULL){
-//             Node* temp = this->left;
-//             delete this;
-//             this = temp;
-//         } else {
-//             Node* temp = this->right;
-//             while(temp->left != NULL){
-//                 temp = temp->left;
-//             }
-//             this->value = temp->value;
-//             this->right->remove(temp->value);
-//         }
-//     }
-// }
+// Deletes a node using the copy method
+Node* Node::remove(Node* root, int value) {
+    if(root == NULL){
+        return NULL;
+    }
+    if(value < root->value){
+        root->left = remove(root->left, value);
+    } else if(value > root->value){
+        root->right = remove(root->right, value);
+    } else {
+        if(root->left == NULL){
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        } else if(root->right == NULL){
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        }
+        Node* temp = root->right;
+        while(temp->left != NULL){
+            temp = temp->left;
+        }
+        temp->left = root->left;
+        delete root;
+        return root->right;
+    }
+    return root;
+}
 
-void Node::print(){
-    std::cout << this->value << std::endl;
-    if(this->left != NULL){
-        this->left->print();
+void Node::print(Node* root){
+    if(root != NULL){
+        std::cout << root->getValue() << " ";
+        this->print(root->getLeft());
+        this->print(root->getRight());
     }
-    if(this->right != NULL){
-        this->right->print();
-    }
+}
+
+int main() {
+    // Create a tree
+    Node* root = new Node(10);
+    root->insert(5);
+    root->insert(15);
+    root->insert(3);
+    root->insert(7);
+    root->insert(13);
+    root->print(root);
+    root->remove(root, 5);
+    root->print(root);
+    return 0;
 }
