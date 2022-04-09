@@ -42,7 +42,7 @@
     - [ ] pointers to dictionaries
     - [x] pointers to lists
     - [ ] pointers to vectors
-- [ ] Stucts
+- [x] Stucts
 - [ ] Unit tests
 - [ ] Word2Vec implementation
 - [x] Declaring functions
