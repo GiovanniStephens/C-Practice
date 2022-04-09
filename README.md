@@ -20,7 +20,7 @@
     - [ ] Greedy
     - [ ] Dynamic programming
     - [ ] Backtracking
-    - [ ] Recursion
+    - [x] Recursion
 - [x] String operations
     - [x] string objects
     - [x] reversing a string
@@ -42,6 +42,7 @@
     - [ ] pointers to dictionaries
     - [x] pointers to lists
     - [ ] pointers to vectors
+- [ ] Stucts
 - [ ] Unit tests
 - [ ] Word2Vec implementation
 - [x] Declaring functions
