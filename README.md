@@ -27,13 +27,16 @@
     - [x] string concatenation
     - [x] string formatting
     - [x] string methods
-- [x] File operations
+- [x] Basic file operations
     - [x] reading a file
     - [x] writing a file
     - [x] appending to a file
     - [x] reading a file line by line
     - [x] reading a file line by line and printing
     - [ ] <s> reading a file line by line and printing with a counter</s> (won't do)
+- [ ] More file operations
+    - [ ] Parsing .csv files
+    - [ ] Parsing .json files
 - [ ] Pointers
     - [ ] pointers to functions
     - [x] pointers to objects
@@ -66,7 +69,11 @@
     - [ ] Support vector machines
     - [ ] Decision trees
     - [ ] Random forests
-    - [ ] Naive Bayes 
+    - [ ] Naive Bayes
+- [ ] Finance
+    - [ ] Download time series data from Yahoo Finance
+    - [ ] Download time series data from Quandl
+    - [ ] Find some tick data and import it.
 
 # Questions
 1. What happens when you instantiate a class instance with a parameter that is greater than the MAX_SIZE defined in the class?
