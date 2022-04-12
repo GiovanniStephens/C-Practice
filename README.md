@@ -48,6 +48,9 @@
 - [x] Stucts
 - [ ] Unit tests
 - [ ] Word2Vec implementation
+    - [x] Basic string tokenizer
+    - [ ] Feed-forward neural network
+    - [ ] Word2Vec model
 - [x] Declaring functions
 - [ ] Look into how web scraping is done
 - [ ] Timing functions
