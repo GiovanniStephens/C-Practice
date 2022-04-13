@@ -46,6 +46,7 @@
     - [x] pointers to lists
     - [ ] pointers to vectors
 - [x] Stucts
+- [x] Basic random numbers
 - [ ] Unit tests
 - [ ] Word2Vec implementation
     - [x] Basic string tokenizer
