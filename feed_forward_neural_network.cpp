@@ -5,7 +5,7 @@
  * Author:  Giovanni Stephens
  * Date:    13/04/2022
  */
-#include <stdlib>
+#include <stdlib.h>
 
 // Number of inputs
 #define INPUTS 3
@@ -82,7 +82,7 @@ void Neuron::setWeights(double *weights) {
 void Neuron::initializeWeights() {
     // Initialize weights
     for (int i = 0; i < WEIGHTS_PER_NEURON; i++) {
-        weights[i] = rand();
+        weights[i] = (double)rand() / (double)RAND_MAX;
     }
 }
 
