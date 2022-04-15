@@ -54,6 +54,7 @@
     - [ ] Feed-forward neural network
     - [ ] Word2Vec model
 - [x] Declaring functions
+- [x] Sum of two numbers matching a target
 - [ ] Look into how web scraping is done
 - [ ] Timing functions
 - [ ] Statistical models
