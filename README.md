@@ -57,7 +57,7 @@
 - [x] Sum of two numbers matching a target
 - [ ] Look into how web scraping is done
 - [ ] Timing functions
-- [ ] Division in C++
+- [x] Division in C++
 - [ ] Statistical models
     - [ ] Linear regression using OLS
     - [ ] Logistic regression using OLS
