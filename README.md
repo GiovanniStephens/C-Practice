@@ -56,7 +56,7 @@
 - [x] Declaring functions
 - [x] Sum of two numbers matching a target
 - [ ] Look into how web scraping is done
-- [ ] Timing functions
+- [x] Timing functions
 - [x] Division in C++
 - [ ] Statistical models
     - [ ] Linear regression using OLS
