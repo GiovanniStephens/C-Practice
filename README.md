@@ -55,6 +55,7 @@
     - [ ] Word2Vec model
 - [x] Declaring functions
 - [x] Sum of two numbers matching a target
+- [x] Three-sum problem
 - [ ] Look into how web scraping is done
 - [x] Timing functions
 - [x] Division in C++
