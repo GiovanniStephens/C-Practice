@@ -48,6 +48,7 @@
 - [x] Stucts
 - [x] Basic random numbers
 - [x] Roman numeral converter
+- [ ] String to int converter
 - [ ] Unit tests
 - [ ] Word2Vec implementation
     - [x] Basic string tokenizer
