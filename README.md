@@ -16,6 +16,12 @@
     - [ ] Hash tables
 - [ ] Algorithms:
     - [ ] Sorting
+        - [ ] Bubble sort
+        - [ ] Insertion sort
+        - [ ] Selection sort
+        - [ ] Merge sort
+        - [ ] Quick sort
+        - [ ] Heap sort
     - [ ] Searching
     - [ ] Greedy
     - [ ] Dynamic programming
