@@ -67,7 +67,11 @@
 - [x] Timing functions
 - [x] Division in C++
 - [ ] Statistical models
-    - [ ] Linear regression using OLS
+    - [ ] Linear regression using OLS:
+        - [ ] matrix operations:
+            - [ ] matrix inversion
+            - [ ] matrix multiplication
+            - [ ] matrix transposition
     - [ ] Logistic regression using OLS
     - [ ] Linear regression estimated using ML
     - [ ] Multiple Linear Regression
