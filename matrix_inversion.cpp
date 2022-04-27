@@ -8,6 +8,26 @@
 #include <vector>
 #include <string>
 
+class Matrix {
+public:
+    Matrix(std::vector<std::vector<double>> matrix);
+    Matrix cofactor(size_t p, size_t q);
+    double determinant();
+    Matrix inverse();
+    void print();
+private:
+    size_t n;
+    std::vector<std::vector<double>> matrix;
+};
+
+Matrix::Matrix(std::vector<std::vector<double>> matrix) {
+    this->matrix = matrix;
+    this->n = matrix.size();
+}
+
+
+
+
 int main() {
     std::vector<std::vector<int>> matrix = {
         {1, 2, 3},
