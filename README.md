@@ -69,7 +69,7 @@
 - [ ] Statistical models
     - [ ] Linear regression using OLS:
         - [ ] matrix operations:
-            - [ ] matrix inversion
+            - [x] matrix inversion
             - [x] matrix multiplication
             - [ ] matrix transposition
     - [ ] Logistic regression using OLS
