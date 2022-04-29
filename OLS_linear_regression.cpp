@@ -10,10 +10,13 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include <chrono>
 
 class Matrix {
 public:
     Matrix(int rows, int cols);
+    Matrix();
+    ~Matrix();
     double& operator()(int i,int j);
     Matrix cofactor(unsigned int p, unsigned int q);
     double determinant();
@@ -26,12 +29,20 @@ private:
     std::vector<std::vector<double>> matrix;
 };
 
+// Default constructor
+Matrix::Matrix() {
+}
+
 Matrix::Matrix(int rows, int cols) {
     n = rows;
     matrix.resize(rows);
     for (int i = 0; i < rows; i++) {
         matrix[i].resize(cols);
     }
+}
+
+Matrix::~Matrix() {
+    matrix.clear();
 }
 
 double& Matrix::operator()(int i,int j) {
@@ -130,8 +141,8 @@ void Matrix::print() {
 
 class LinearRegressor {
     private:
-        std::vector<std::vector<double>> x;
-        std::vector<double> y;
+        Matrix X;
+        Matrix Y;
     public:
         std::vector<double> coefficients;
         LinearRegressor(std::vector<std::vector<double>> x, std::vector<double> y);
@@ -140,69 +151,66 @@ class LinearRegressor {
 };
 
 LinearRegressor::LinearRegressor(std::vector<std::vector<double>> x, std::vector<double> y) {
-    this->x = x;
-    this->y = y;
-}
-
-LinearRegressor::~LinearRegressor() {
-    x.clear();
-    y.clear();
-    coefficients.clear();
-}
-
-void LinearRegressor::fit() {
-    // create matrix of x values with a column of 1's at the first column
-    Matrix X(x.size(), x[0].size() + 1);
+    this->X = Matrix(x.size(), x[0].size() + 1);
+    this->Y = Matrix(y.size(), 1);
     for (int i = 0; i < x.size(); i++) {
         for (int j = 0; j < x[0].size() + 1; j++) {
             if (j == 0) {
-                X(i, j) = 1;
+                this->X(i, j) = 1;
             } else {
-                X(i, j) = x[i][j-1];
+                this->X(i, j) = x[i][j - 1];
             }
         }
     }
-    X.print();
-    std::cout << std::endl;
-
-    // create matrix of y values
-    Matrix Y(y.size(), 1);
     for (int i = 0; i < y.size(); i++) {
-        Y(i, 0) = y[i];
+        this->Y(i, 0) = y[i];
     }
-    Y.print();
-    std::cout << std::endl;
+}
 
+LinearRegressor::~LinearRegressor() {
+    coefficients.clear();
+    X.~Matrix();
+    Y.~Matrix();
+}
+
+void LinearRegressor::fit() {
     // create matrix of x values
     Matrix X_transpose = X.transpose();
-    X_transpose.print();
-    std::cout << std::endl;
 
     // X^T * X
     Matrix X_transpose_X = X_transpose.multiply(X);
-    X_transpose_X.print();
-    std::cout << std::endl;
 
     // X^T * Y
     Matrix X_transpose_Y = X_transpose.multiply(Y);
-    X_transpose_Y.print();
-    std::cout << std::endl;
 
     // (X^T * X)^-1
     Matrix X_transpose_X_inverse = X_transpose_X.inverse();
-    X_transpose_X_inverse.print();
-    std::cout << std::endl;
 
     // (X^T * X)^-1 * X^T * Y
     Matrix X_transpose_X_inverse_X_transpose_Y = X_transpose_X_inverse.multiply(X_transpose_Y);
-    X_transpose_X_inverse_X_transpose_Y.print();
-    std::cout << std::endl;
 
-    // Update the coefficients
+    // Update the coefficients, but first clear the coefficients vector
+    coefficients.clear();
     for (int i = 0; i < X_transpose_X_inverse_X_transpose_Y.n; i++) {
         coefficients.push_back(X_transpose_X_inverse_X_transpose_Y(i, 0));
     }
 }
+
+class Timer {
+    using clock_type = std::chrono::steady_clock;
+    using second_clock_type = std::chrono::duration<double, std::ratio<1>>;
+
+    std::chrono::time_point<clock_type> start_time{ clock_type::now() };
+
+    public:
+        void reset() {
+            start_time = clock_type::now();
+        }
+
+        double elapsed_time() const {
+            return std::chrono::duration_cast<second_clock_type>(clock_type::now() - start_time).count();
+        }
+};
 
 int main() {
     std::vector<std::vector<double>> x = {
@@ -220,7 +228,10 @@ int main() {
     };
 
     LinearRegressor lr(x, y);
+    // Timer to see how long it takes to fit the model
+    Timer timer;
     lr.fit();
+    std::cout << "Time to fit: " << timer.elapsed_time() << std::endl;
     std::cout << "Coefficients: ";
     for (int i = 0; i < lr.coefficients.size(); i++) {
         std::cout << lr.coefficients[i] << " ";
