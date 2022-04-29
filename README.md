@@ -67,12 +67,13 @@
 - [x] Timing functions
 - [x] Division in C++
 - [ ] Statistical models
-    - [ ] Linear regression using OLS:
-        - [ ] matrix operations:
+    - [x] Linear regression using OLS:
+        - [x] matrix operations:
             - [x] matrix inversion (could this be parallelised?)
             - [x] matrix multiplication
-            - [ ] matrix transposition
-            - [ ] Maybe transposition and multiplication can happen at the same time to save space and time.
+            - [x] matrix transposition
+            - [ ] <s>Maybe transposition and multiplication can happen at the same time to save space and time.</s>
+    - [ ] Linear regression using a library
     - [ ] Logistic regression using OLS
     - [ ] Linear regression estimated using ML
     - [ ] Multiple Linear Regression
