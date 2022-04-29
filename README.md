@@ -69,9 +69,10 @@
 - [ ] Statistical models
     - [ ] Linear regression using OLS:
         - [ ] matrix operations:
-            - [x] matrix inversion
+            - [x] matrix inversion (could this be parallelised?)
             - [x] matrix multiplication
             - [ ] matrix transposition
+            - [ ] Maybe transposition and multiplication can happen at the same time to save space and time.
     - [ ] Logistic regression using OLS
     - [ ] Linear regression estimated using ML
     - [ ] Multiple Linear Regression
@@ -97,3 +98,10 @@
 # Questions
 1. What happens when you instantiate a class instance with a parameter that is greater than the MAX_SIZE defined in the class?
 2. What Libraries are popular in C++?
+
+# Popular Libraries Research
+- Linear algebra libraries:
+    - Armadillo,
+    - Blaze,
+    - Eigen
+- [Nice list](https://github.com/fffaraz/awesome-cpp)
