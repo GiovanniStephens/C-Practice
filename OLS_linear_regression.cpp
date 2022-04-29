@@ -1,9 +1,9 @@
-/** This is a simple linear regression program
- * that uses the OLS method to solve for the 
+/** This is a simple and multuple linear regression 
+ * program matrix operations and the OLS method to solve for the 
  * coefficients.
  * 
  * Author:  Giovanni Stephens
- * Date:    12/04/2022
+ * Date:    29/04/2022
  */
 
 #include <iostream>
