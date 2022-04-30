@@ -148,6 +148,7 @@ class LinearRegressor {
         LinearRegressor(std::vector<std::vector<double>> x, std::vector<double> y);
         ~LinearRegressor();
         void fit();
+        double predict(std::vector<double> x);
 };
 
 LinearRegressor::LinearRegressor(std::vector<std::vector<double>> x, std::vector<double> y) {
@@ -196,6 +197,15 @@ void LinearRegressor::fit() {
     }
 }
 
+double LinearRegressor::predict(std::vector<double> x) {
+    double y_prediction;
+    y_prediction = coefficients[0];
+    for (int i = 1; i < coefficients.size(); i++) {
+        y_prediction += coefficients[i] * x[i - 1];
+    }
+    return y_prediction;
+}
+
 class Timer {
     using clock_type = std::chrono::steady_clock;
     using second_clock_type = std::chrono::duration<double, std::ratio<1>>;
@@ -237,5 +247,18 @@ int main() {
         std::cout << lr.coefficients[i] << " ";
     }
     std::cout << std::endl;
+
+    // Make a prediction
+    std::vector<double> x_test = {
+        4,
+        2,
+        3
+    };
+    // print input and prediction
+    std::cout << "Input: ";
+    for (int i = 0; i < x_test.size(); i++) {
+        std::cout << x_test[i] << " ";
+    }
+    std::cout << "Prediction: " << lr.predict(x_test) << std::endl;
     return 0;
 }
