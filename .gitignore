@@ -34,8 +34,7 @@
 # VS Code config files
 .vscode/*
 
-# Text files
-*.txt
+# Some text files
 *.doc
 *.docx
 *.log
