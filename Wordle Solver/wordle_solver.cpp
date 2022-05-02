@@ -219,26 +219,6 @@ public:
         }
         std::cout << std::endl;
         std::cout << "Congratulations! You found the word: " << word_to_guess << std::endl;
-        
-
-        
-        // std::string top_word_by_freq = get_top_word_by_freq(filtered_words, frequencies);
-        // std::cout << top_word_by_freq << std::endl;
-        // std::vector<int> second_guess = submit_guess(top_word_by_freq);
-        // std::vector<std::string> second_filtered_words = filter_words(filtered_words, second_guess, top_word_by_freq);
-
-        // // get top word based on frequency
-        // std::string top_word_by_freq_2 = get_top_word_by_freq(second_filtered_words, frequencies);
-        // std::cout << top_word_by_freq_2 << std::endl;
-        // std::vector<int> third_guess = submit_guess(top_word_by_freq_2);
-        // std::vector<std::string> third_filtered_words = filter_words(second_filtered_words, third_guess, top_word_by_freq_2);
-
-        // // get top word based on frequency
-        // std::string top_word_by_freq_3 = get_top_word_by_freq(third_filtered_words, frequencies);
-        // std::cout << top_word_by_freq_3 << std::endl;
-        // std::vector<int> fourth_guess = submit_guess(top_word_by_freq_3);
-        // std::vector<std::string> fourth_filtered_words = filter_words(third_filtered_words, fourth_guess, top_word_by_freq_3);
-
     }
 };
 
