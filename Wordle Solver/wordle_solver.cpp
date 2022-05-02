@@ -224,7 +224,7 @@ public:
 
 
 int main() {
-    Solver solver = Solver("olive");
+    Solver solver = Solver("zesty");
     solver.solve();
 
     return 0;
