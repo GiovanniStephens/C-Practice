@@ -67,8 +67,8 @@
 - [ ] Improve the Wordle Solver
     - [ ] Function to get the next best guess based on current information.
     - [ ] Update the solver so that it can take in new words to guess without reloading the data.
-    - [ ] Save down a shorter word list for a faster import.
-    - [ ] Should tell you if it did not manage to solve within 6 guesses.
+    - [x] Save down a shorter word list for a faster import.
+    - [x] Should tell you if it did not manage to solve within 6 guesses. (says the number of guesses it took)
 - [ ] Look into how web scraping is done
 - [x] Timing functions
 - [x] Division in C++
