@@ -25,10 +25,10 @@ std::vector<std::string> read_text_file(std::string filename) {
 class Solver {
 private:
     std::string word_to_guess;
+    std::string starting_guess;
 
-    std::map<std::string, int> get_frequencies(std::string filename) {
+    std::map<std::string, int> get_frequencies(std::vector<std::string> lines) {
         std::map<std::string, int> frequencies;
-        std::vector<std::string> lines = read_text_file(filename);
         for (std::string line : lines) {
             std::string word = line.substr(0, line.find(" "));
             int count = std::stoi(line.substr(line.find(" ") + 1));
@@ -36,29 +36,27 @@ private:
         }
         return frequencies;
     }
-    
-    std::vector<std::string> get_five_letter_words(std::vector<std::string> words) {
-        std::vector<std::string> five_letter_words;
-        for (std::string word : words) {
-            if (word.length() == 5) {
-                five_letter_words.push_back(word);
+
+    bool contains_non_alpha (std::string word) {
+        for (char c : word) {
+            if (!isalpha(c)) {
+                return true;
             }
         }
-        return five_letter_words;
+        return false;
     }
 
-    std::map<char, int> get_letter_counts(std::vector<std::string> words) {
-        std::map<char, int> letter_counts;
-        for (std::string word : words) {
-            for (char letter : word) {
-                if (letter_counts.find(letter) == letter_counts.end()) {
-                    letter_counts[letter] = 1;
-                } else {
-                    letter_counts[letter] += 1;
-                }
+    std::vector<std::string> get_words(std::vector<std::string> lines) {
+        std::vector<std::string> words;
+        for (std::string line : lines) {
+            std::string word = line.substr(0, line.find(" "));
+            if (contains_non_alpha(word)) {
+                continue;
+            } else {
+                words.push_back(word);
             }
         }
-        return letter_counts;
+        return words;
     }
 
     std::vector<int> get_word_ranking(std::vector<std::string> words, std::map<char, int> letter_counts) {
@@ -106,13 +104,16 @@ private:
     }
 
     std::string get_top_word_by_freq(std::vector<std::string> words, std::map<std::string, int> frequencies, std::vector<std::string> previous_guesses) {
-        int top_word_index = 0;
-        for (int i = 1; i < words.size(); i++) {
-            if (frequencies[words[i]] > frequencies[words[top_word_index]] && !is_word_in_vector(words[i], previous_guesses)) {
-                top_word_index = i;
+        std::string best_word = "";
+        for (std::string word : words) {
+            if (is_word_in_vector(word, previous_guesses)) {
+                continue;
+            }
+            if (frequencies[word] > frequencies[best_word]) {
+                best_word = word;
             }
         }
-        return words[top_word_index];
+        return best_word;
     }
 
     // Function to submit a guess to the Wordle puzzle
@@ -185,30 +186,24 @@ private:
 public:
     Solver(std::string word_to_guess) {
         this->word_to_guess = word_to_guess;
+        this->starting_guess = "arose";
     }
 
     ~Solver() {
     }
 
     void solve() {
+        // Load the word counts
+        std::vector<std::string> lines = read_text_file("five_letter_word_frequencies.txt");
         // Get a list of words from the dictionary
-        std::vector<std::string> words = read_text_file("words_alpha.txt");
-        // Filter down to words that are 5 letters long
-        std::vector<std::string> five_letter_words = get_five_letter_words(words);
-        // Get the letter counts
-        std::map<char, int> letter_counts = get_letter_counts(five_letter_words);
-        // Get the ranking of each word based on the letter counts
-        std::vector<int> word_ranking = get_word_ranking(five_letter_words, letter_counts);
-        // Get the first top word based on the ranking
-        std::string top_word = get_top_word(five_letter_words, word_ranking);
-
-        std::cout << "Initial guess: " << top_word;
-        std::vector<int> guess_result = submit_guess(top_word);
+        std::vector<std::string> five_letter_words = get_words(lines);
+        std::cout << "Initial guess: " << this->starting_guess;
+        std::vector<int> guess_result = submit_guess(this->starting_guess);
         // Filter the list of words based on the result of the guess
-        std::vector<std::string> filtered_words = filter_words(five_letter_words, guess_result, top_word);
+        std::vector<std::string> filtered_words = filter_words(five_letter_words, guess_result, this->starting_guess);
 
         // Get the top word based on the frequency of the words
-        std::map<std::string, int> frequencies = get_frequencies("five_letter_word_frequencies.txt");
+        std::map<std::string, int> frequencies = get_frequencies(lines);
         std::vector<std::string> previous_guesses;
         while (!is_correct_guess(guess_result)) {
             std::string top_word = get_top_word_by_freq(filtered_words, frequencies, previous_guesses);
@@ -218,13 +213,14 @@ public:
             filtered_words = filter_words(filtered_words, guess_result, top_word);
         }
         std::cout << std::endl;
-        std::cout << "Congratulations! You found the word: " << word_to_guess << std::endl;
+        std::cout << "Congratulations! You found the word: " << word_to_guess;
+        std::cout << " in " << previous_guesses.size() + 1 << " guesses." << std::endl;
     }
 };
 
 
 int main() {
-    Solver solver = Solver("zesty");
+    Solver solver = Solver("canny");
     solver.solve();
 
     return 0;
