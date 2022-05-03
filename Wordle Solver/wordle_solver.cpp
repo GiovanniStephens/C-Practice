@@ -161,6 +161,7 @@ private:
                         break;
                     }
                 } else if (result[j] == 1) {
+                    // If the letter is correct and in the correct place, but the guess letter at that place is not it.
                     if (words[i][j] != guess[j]) {
                         break;
                     }
@@ -220,7 +221,7 @@ public:
 
 
 int main() {
-    Solver solver = Solver("canny");
+    Solver solver = Solver("atoll");
     solver.solve();
 
     return 0;
