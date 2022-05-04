@@ -64,9 +64,9 @@
 - [x] Sum of two numbers matching a target
 - [x] Three-sum problem
 - [x] Wordle solver
-- [ ] Improve the Wordle Solver
-    - [ ] Function to get the next best guess based on current information.
-    - [ ] Update the solver so that it can take in new words to guess without reloading the data.
+- [x] Improve the Wordle Solver
+    - [x] Function to get the next best guess based on current information.
+    - [x] Update the solver so that it can take in new words to guess without reloading the data.
     - [x] Save down a shorter word list for a faster import.
     - [x] Should tell you if it did not manage to solve within 6 guesses. (says the number of guesses it took)
 - [ ] Look into how web scraping is done
