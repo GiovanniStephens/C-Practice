@@ -119,24 +119,6 @@ private:
         return best_word;
     }
 
-    // Function to submit a guess to the Wordle puzzle
-    // Returns an array with 0's for correct letters but wrong places
-    // and 1's for correct letters in the correct places
-    // -1 for incorrect guesses
-    std::vector<int> submit_guess(std::string guess) {
-        std::vector<int> result;
-        for (int i = 0; i < guess.length(); i++) {
-            if (guess[i] == word_to_guess[i]) {
-                result.push_back(1);
-            } else if (word_to_guess.find(guess[i]) != std::string::npos) {
-                result.push_back(0);
-            } else {
-                result.push_back(-1);
-            }
-        }
-        return result;
-    }
-
     // Function to check if the input work contains a letter
     bool contains_letter(std::string word, char letter) {
         for (char c : word) {
@@ -218,6 +200,33 @@ public:
         std::cout << " in " << previous_guesses.size() + 1 << " guesses." << std::endl;
     }
 
+    void help_solve(std::vector<std::vector<int>> results, std::vector<std::string> previous_guesses) {
+        std::vector<std::string> filtered_words = filter_words(five_letter_words, results[0], previous_guesses[0]);
+        for (int i = 1; i < results.size(); i++) {
+            filtered_words = filter_words(filtered_words, results[i], previous_guesses[i]);
+        }
+        std::string top_word = get_top_word_by_freq(filtered_words, frequencies, previous_guesses);
+        std::cout << "Recommended guess: " << top_word << std::endl;
+    }
+
+    // Function to submit a guess to the Wordle puzzle
+    // Returns an array with 0's for correct letters but wrong places
+    // and 1's for correct letters in the correct places
+    // -1 for incorrect guesses
+    std::vector<int> submit_guess(std::string guess) {
+        std::vector<int> result;
+        for (int i = 0; i < guess.length(); i++) {
+            if (guess[i] == word_to_guess[i]) {
+                result.push_back(1);
+            } else if (word_to_guess.find(guess[i]) != std::string::npos) {
+                result.push_back(0);
+            } else {
+                result.push_back(-1);
+            }
+        }
+        return result;
+    }
+
     void set_starting_guess(std::string guess) {
         this->starting_guess = guess;
     }
@@ -230,7 +239,15 @@ public:
 
 int main() {
     Solver solver = Solver("cigar");
-    solver.solve();
+    std::vector<std::string> previous_guesses;
+    std::vector<std::vector<int>> results;
+    previous_guesses.push_back("arose");
+    previous_guesses.push_back("march");
+    for (int i = 0; i < 2; i++) {
+        results.push_back(solver.submit_guess(previous_guesses[i]));
+    }   
+    solver.help_solve(results, previous_guesses);
+    // solver.solve();
 
     return 0;
 }
