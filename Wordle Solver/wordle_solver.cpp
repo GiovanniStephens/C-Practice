@@ -26,6 +26,9 @@ class Solver {
 private:
     std::string word_to_guess;
     std::string starting_guess;
+    std::vector<std::string> lines;
+    std::vector<std::string> five_letter_words;
+    std::map<std::string, int> frequencies;
 
     std::map<std::string, int> get_frequencies(std::vector<std::string> lines) {
         std::map<std::string, int> frequencies;
@@ -188,23 +191,20 @@ public:
     Solver(std::string word_to_guess) {
         this->word_to_guess = word_to_guess;
         this->starting_guess = "arose";
+        this->lines = read_text_file("five_letter_word_frequencies.txt");
+        this->five_letter_words = get_words(lines);
+        this->frequencies = get_frequencies(lines);
     }
 
     ~Solver() {
     }
 
     void solve() {
-        // Load the word counts
-        std::vector<std::string> lines = read_text_file("five_letter_word_frequencies.txt");
-        // Get a list of words from the dictionary
-        std::vector<std::string> five_letter_words = get_words(lines);
         std::cout << "Initial guess: " << this->starting_guess;
         std::vector<int> guess_result = submit_guess(this->starting_guess);
         // Filter the list of words based on the result of the guess
         std::vector<std::string> filtered_words = filter_words(five_letter_words, guess_result, this->starting_guess);
 
-        // Get the top word based on the frequency of the words
-        std::map<std::string, int> frequencies = get_frequencies(lines);
         std::vector<std::string> previous_guesses;
         while (!is_correct_guess(guess_result)) {
             std::string top_word = get_top_word_by_freq(filtered_words, frequencies, previous_guesses);
@@ -221,7 +221,7 @@ public:
 
 
 int main() {
-    Solver solver = Solver("atoll");
+    Solver solver = Solver("cigar");
     solver.solve();
 
     return 0;
