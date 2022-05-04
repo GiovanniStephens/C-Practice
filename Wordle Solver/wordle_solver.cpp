@@ -217,6 +217,14 @@ public:
         std::cout << "Congratulations! You found the word: " << word_to_guess;
         std::cout << " in " << previous_guesses.size() + 1 << " guesses." << std::endl;
     }
+
+    void set_starting_guess(std::string guess) {
+        this->starting_guess = guess;
+    }
+
+    void set_word_to_guess(std::string word) {
+        this->word_to_guess = word;
+    }
 };
 
 
