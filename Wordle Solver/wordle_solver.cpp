@@ -1,6 +1,6 @@
-/** This program is a basic solver to guess the 
+/** This program is a basic solver to guess the
  * Wordle puzzle of the day.
- * 
+ *
  * Author:  Giovanni Stephens
  * Date:    02/05/2022
  */
@@ -23,7 +23,7 @@ std::vector<std::string> read_text_file(std::string filename) {
 }
 
 class Solver {
-private:
+  private:
     std::string word_to_guess;
     std::string starting_guess;
     std::vector<std::string> lines;
@@ -40,7 +40,7 @@ private:
         return frequencies;
     }
 
-    bool contains_non_alpha (std::string word) {
+    bool contains_non_alpha(std::string word) {
         for (char c : word) {
             if (!isalpha(c)) {
                 return true;
@@ -62,7 +62,8 @@ private:
         return words;
     }
 
-    std::vector<int> get_word_ranking(std::vector<std::string> words, std::map<char, int> letter_counts) {
+    std::vector<int> get_word_ranking(std::vector<std::string> words,
+                                      std::map<char, int> letter_counts) {
         std::vector<int> word_ranking;
 
         for (std::string word : words) {
@@ -75,7 +76,7 @@ private:
                     unique_letters[letter] += 1;
                 }
             }
-            int word_score = 0;            
+            int word_score = 0;
             for (char letter : word) {
                 if (unique_letters[letter] > 0) {
                     word_score += letter_counts[letter];
@@ -87,7 +88,8 @@ private:
         return word_ranking;
     }
 
-    std::string get_top_word(std::vector<std::string> words, std::vector<int> word_ranking) {
+    std::string get_top_word(std::vector<std::string> words,
+                             std::vector<int> word_ranking) {
         int top_word_index = 0;
         for (int i = 1; i < word_ranking.size(); i++) {
             if (word_ranking[i] > word_ranking[top_word_index]) {
@@ -106,7 +108,10 @@ private:
         return false;
     }
 
-    std::string get_top_word_by_freq(std::vector<std::string> words, std::map<std::string, int> frequencies, std::vector<std::string> previous_guesses) {
+    std::string
+    get_top_word_by_freq(std::vector<std::string> words,
+                         std::map<std::string, int> frequencies,
+                         std::vector<std::string> previous_guesses) {
         std::string best_word = "";
         for (std::string word : words) {
             if (is_word_in_vector(word, previous_guesses)) {
@@ -130,23 +135,28 @@ private:
     }
 
     // Function to filter the list of words based on the result of a guess
-    std::vector<std::string> filter_words(std::vector<std::string> words, std::vector<int> result, std::string guess) {
+    std::vector<std::string> filter_words(std::vector<std::string> words,
+                                          std::vector<int> result,
+                                          std::string guess) {
         std::vector<std::string> filtered_words;
         std::cout << std::endl;
         for (int i = 0; i < words.size(); i++) {
             for (int j = 0; j < result.size(); j++) {
-                // If the letter is incorrect, remove the word if the word has that letter
+                // If the letter is incorrect, remove the word if the word has
+                // that letter
                 if (result[j] == -1) {
                     if (contains_letter(words[i], guess[j])) {
                         break;
                     }
                 } else if (result[j] == 0) {
-                    // If the letter is correct but in the wrong place, remove the word if the word doesn't have that letter
+                    // If the letter is correct but in the wrong place, remove
+                    // the word if the word doesn't have that letter
                     if (!contains_letter(words[i], guess[j])) {
                         break;
                     }
                 } else if (result[j] == 1) {
-                    // If the letter is correct and in the correct place, but the guess letter at that place is not it.
+                    // If the letter is correct and in the correct place, but
+                    // the guess letter at that place is not it.
                     if (words[i][j] != guess[j]) {
                         break;
                     }
@@ -169,7 +179,7 @@ private:
         return true;
     }
 
-public:
+  public:
     Solver(std::string word_to_guess) {
         this->word_to_guess = word_to_guess;
         this->starting_guess = "arose";
@@ -178,34 +188,41 @@ public:
         this->frequencies = get_frequencies(lines);
     }
 
-    ~Solver() {
-    }
+    ~Solver() {}
 
     void solve() {
         std::cout << "Initial guess: " << this->starting_guess;
         std::vector<int> guess_result = submit_guess(this->starting_guess);
         // Filter the list of words based on the result of the guess
-        std::vector<std::string> filtered_words = filter_words(five_letter_words, guess_result, this->starting_guess);
+        std::vector<std::string> filtered_words =
+            filter_words(five_letter_words, guess_result, this->starting_guess);
 
         std::vector<std::string> previous_guesses;
         while (!is_correct_guess(guess_result)) {
-            std::string top_word = get_top_word_by_freq(filtered_words, frequencies, previous_guesses);
+            std::string top_word = get_top_word_by_freq(
+                filtered_words, frequencies, previous_guesses);
             std::cout << "Guess: " << top_word;
             guess_result = submit_guess(top_word);
             previous_guesses.push_back(top_word);
-            filtered_words = filter_words(filtered_words, guess_result, top_word);
+            filtered_words =
+                filter_words(filtered_words, guess_result, top_word);
         }
         std::cout << std::endl;
         std::cout << "Congratulations! You found the word: " << word_to_guess;
-        std::cout << " in " << previous_guesses.size() + 1 << " guesses." << std::endl;
+        std::cout << " in " << previous_guesses.size() + 1 << " guesses."
+                  << std::endl;
     }
 
-    void help_solve(std::vector<std::vector<int>> results, std::vector<std::string> previous_guesses) {
-        std::vector<std::string> filtered_words = filter_words(five_letter_words, results[0], previous_guesses[0]);
+    void help_solve(std::vector<std::vector<int>> results,
+                    std::vector<std::string> previous_guesses) {
+        std::vector<std::string> filtered_words =
+            filter_words(five_letter_words, results[0], previous_guesses[0]);
         for (int i = 1; i < results.size(); i++) {
-            filtered_words = filter_words(filtered_words, results[i], previous_guesses[i]);
+            filtered_words =
+                filter_words(filtered_words, results[i], previous_guesses[i]);
         }
-        std::string top_word = get_top_word_by_freq(filtered_words, frequencies, previous_guesses);
+        std::string top_word =
+            get_top_word_by_freq(filtered_words, frequencies, previous_guesses);
         std::cout << "Recommended guess: " << top_word << std::endl;
     }
 
@@ -227,15 +244,10 @@ public:
         return result;
     }
 
-    void set_starting_guess(std::string guess) {
-        this->starting_guess = guess;
-    }
+    void set_starting_guess(std::string guess) { this->starting_guess = guess; }
 
-    void set_word_to_guess(std::string word) {
-        this->word_to_guess = word;
-    }
+    void set_word_to_guess(std::string word) { this->word_to_guess = word; }
 };
-
 
 int main() {
     Solver solver = Solver("cigar");
@@ -245,7 +257,7 @@ int main() {
     previous_guesses.push_back("march");
     for (int i = 0; i < 2; i++) {
         results.push_back(solver.submit_guess(previous_guesses[i]));
-    }   
+    }
     solver.help_solve(results, previous_guesses);
     // solver.solve();
 
