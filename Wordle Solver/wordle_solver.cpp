@@ -62,43 +62,6 @@ class Solver {
         return words;
     }
 
-    std::vector<int> get_word_ranking(std::vector<std::string> words,
-                                      std::map<char, int> letter_counts) {
-        std::vector<int> word_ranking;
-
-        for (std::string word : words) {
-            // Get unique letters in the word
-            std::map<char, int> unique_letters;
-            for (char letter : word) {
-                if (unique_letters.find(letter) == unique_letters.end()) {
-                    unique_letters[letter] = 1;
-                } else {
-                    unique_letters[letter] += 1;
-                }
-            }
-            int word_score = 0;
-            for (char letter : word) {
-                if (unique_letters[letter] > 0) {
-                    word_score += letter_counts[letter];
-                    unique_letters[letter] = 0;
-                }
-            }
-            word_ranking.push_back(word_score);
-        }
-        return word_ranking;
-    }
-
-    std::string get_top_word(std::vector<std::string> words,
-                             std::vector<int> word_ranking) {
-        int top_word_index = 0;
-        for (int i = 1; i < word_ranking.size(); i++) {
-            if (word_ranking[i] > word_ranking[top_word_index]) {
-                top_word_index = i;
-            }
-        }
-        return words[top_word_index];
-    }
-
     bool is_word_in_vector(std::string word, std::vector<std::string> words) {
         for (std::string w : words) {
             if (w == word) {
@@ -139,7 +102,6 @@ class Solver {
                                           std::vector<int> result,
                                           std::string guess) {
         std::vector<std::string> filtered_words;
-        std::cout << std::endl;
         for (int i = 0; i < words.size(); i++) {
             for (int j = 0; j < result.size(); j++) {
                 // If the letter is incorrect, remove the word if the word has
@@ -191,23 +153,24 @@ class Solver {
     ~Solver() {}
 
     void solve() {
-        std::cout << "Initial guess: " << this->starting_guess;
+        // std::cout << "Initial guess: " << this->starting_guess;
         std::vector<int> guess_result = submit_guess(this->starting_guess);
         // Filter the list of words based on the result of the guess
         std::vector<std::string> filtered_words =
             filter_words(five_letter_words, guess_result, this->starting_guess);
-
         std::vector<std::string> previous_guesses;
+        std::string top_word = "";
+        int previous_number_of_options = filtered_words.size();
         while (!is_correct_guess(guess_result)) {
-            std::string top_word = get_top_word_by_freq(
-                filtered_words, frequencies, previous_guesses);
-            std::cout << "Guess: " << top_word;
+            top_word = get_top_word_by_freq(filtered_words, frequencies,
+                                            previous_guesses);
+            // std::cout << "Guess: " << top_word;
             guess_result = submit_guess(top_word);
             previous_guesses.push_back(top_word);
+            previous_number_of_options = filtered_words.size();
             filtered_words =
                 filter_words(filtered_words, guess_result, top_word);
         }
-        std::cout << std::endl;
         std::cout << "Congratulations! You found the word: " << word_to_guess;
         std::cout << " in " << previous_guesses.size() + 1 << " guesses."
                   << std::endl;
@@ -250,16 +213,23 @@ class Solver {
 };
 
 int main() {
-    Solver solver = Solver("cigar");
-    std::vector<std::string> previous_guesses;
-    std::vector<std::vector<int>> results;
-    previous_guesses.push_back("arose");
-    previous_guesses.push_back("march");
-    for (int i = 0; i < 2; i++) {
-        results.push_back(solver.submit_guess(previous_guesses[i]));
+    std::vector<std::string> words_to_guess = {
+        "cigar", "rebut", "sissy", "humph", "awake", "blush",
+        "focal", "evade", "naval", "serve", "heath", "dwarf",
+        "model", "karma", "stink", "grade", "quiet", "bench"};
+    Solver solver = Solver(words_to_guess[0]);
+    solver.solve();
+    for (int i = 1; i < words_to_guess.size(); i++) {
+        solver.set_word_to_guess(words_to_guess[i]);
+        solver.solve();
     }
-    solver.help_solve(results, previous_guesses);
-    // solver.solve();
-
+    // std::vector<std::string> previous_guesses;
+    // std::vector<std::vector<int>> results;
+    // previous_guesses.push_back("arose");
+    // previous_guesses.push_back("march");
+    // for (int i = 0; i < 2; i++) {
+    //     results.push_back(solver.submit_guess(previous_guesses[i]));
+    // }
+    // solver.help_solve(results, previous_guesses);
     return 0;
 }
