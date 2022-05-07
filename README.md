@@ -84,7 +84,7 @@
             - [x] matrix multiplication
             - [x] matrix transposition
             - [ ] <s>Maybe transposition and multiplication can happen at the same time to save space and time.</s>
-    - [ ] Linear regression using a library
+    - [ ] <s>Linear regression using a library</s>
     - [ ] Logistic regression using OLS
     - [ ] Linear regression estimated using ML
     - [ ] Multiple Linear Regression
