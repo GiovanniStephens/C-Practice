@@ -213,23 +213,24 @@ class Solver {
 };
 
 int main() {
-    std::vector<std::string> words_to_guess = {
-        "cigar", "rebut", "sissy", "humph", "awake", "blush",
-        "focal", "evade", "naval", "serve", "heath", "dwarf",
-        "model", "karma", "stink", "grade", "quiet", "bench"};
-    Solver solver = Solver(words_to_guess[0]);
-    solver.solve();
-    for (int i = 1; i < words_to_guess.size(); i++) {
-        solver.set_word_to_guess(words_to_guess[i]);
-        solver.solve();
-    }
-    // std::vector<std::string> previous_guesses;
-    // std::vector<std::vector<int>> results;
-    // previous_guesses.push_back("arose");
-    // previous_guesses.push_back("march");
-    // for (int i = 0; i < 2; i++) {
-    //     results.push_back(solver.submit_guess(previous_guesses[i]));
+    // std::vector<std::string> words_to_guess = {
+    //     "cigar", "rebut", "sissy", "humph", "awake", "blush",
+    //     "focal", "evade", "naval", "serve", "heath", "dwarf",
+    //     "model", "karma", "stink", "grade", "quiet", "bench"};
+    // Solver solver = Solver(words_to_guess[0]);
+    // solver.solve();
+    // for (int i = 1; i < words_to_guess.size(); i++) {
+    //     solver.set_word_to_guess(words_to_guess[i]);
+    //     solver.solve();
     // }
-    // solver.help_solve(results, previous_guesses);
+    Solver solver = Solver("cigar");
+    std::vector<std::string> previous_guesses;
+    std::vector<std::vector<int>> results;
+    previous_guesses.push_back("shape");
+    previous_guesses.push_back("stout");
+    previous_guesses.push_back("grist");
+    previous_guesses.push_back("twist");
+    results = {{0,-1,-1,-1,-1}, {0,0,-1,-1,1}, {-1,-1,0,1,1}, {0,-1,0,1,1}};
+    solver.help_solve(results, previous_guesses);
     return 0;
 }
