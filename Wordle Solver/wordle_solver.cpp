@@ -10,6 +10,12 @@
 #include <string>
 #include <map>
 
+/** This function takes a string and returns a vector of
+ * strings, where each element is a line from the text file.
+ * 
+ * @param file_name The name of the file to be read.
+ * @return A vector of strings, where each element is a line from the text file.
+ */
 std::vector<std::string> read_text_file(std::string filename) {
     std::ifstream infile;
     infile.open(filename);
@@ -22,14 +28,26 @@ std::vector<std::string> read_text_file(std::string filename) {
     return lines;
 }
 
+/** This class contains the solver functions to 
+ * guess the Wordle puzzle of the day.
+ */
 class Solver {
   private:
+    // For is you have an input word to try to guess.
     std::string word_to_guess;
+    // This is the starting guess.
+    // (Based on a word that maximises the probability of guessing the word.)
     std::string starting_guess;
     std::vector<std::string> lines;
     std::vector<std::string> five_letter_words;
     std::map<std::string, int> frequencies;
 
+    /** This function takes the lines from the text file and
+     * splits the lines into words and their count based on Wiki data.
+     * 
+     * @param lines The lines from the text file.
+     * @return A map of words and their count.
+     */
     std::map<std::string, int> get_frequencies(std::vector<std::string> lines) {
         std::map<std::string, int> frequencies;
         for (std::string line : lines) {
@@ -40,6 +58,12 @@ class Solver {
         return frequencies;
     }
 
+    /** Takes a string and checks if there are any 
+     * non-alphabetical characters in it.
+     * 
+     * @param word The string to check.
+     * @return True if there are no non-alphabetical characters, false otherwise.
+     */
     bool contains_non_alpha(std::string word) {
         for (char c : word) {
             if (!isalpha(c)) {
@@ -49,6 +73,13 @@ class Solver {
         return false;
     }
 
+    /** Takes the lines from the input file and splits them into
+     * words.
+     * 
+     * @param lines The lines from the input file.
+     * @return A vector of strings, where each element is a word.
+     * @see get_frequencies
+     */
     std::vector<std::string> get_words(std::vector<std::string> lines) {
         std::vector<std::string> words;
         for (std::string line : lines) {
@@ -62,6 +93,12 @@ class Solver {
         return words;
     }
 
+    /** Checks that a word is in the words vector.
+     * 
+     * @param word The word to check.
+     * @param words The vector of words to check against.
+     * @return True if the word is in the vector, false otherwise.
+     */
     bool is_word_in_vector(std::string word, std::vector<std::string> words) {
         for (std::string w : words) {
             if (w == word) {
@@ -71,6 +108,15 @@ class Solver {
         return false;
     }
 
+    /** Gets the top word based on how frequenctly is appears 
+     * on Wikipedia.
+     * 
+     * @param words The vector of words to pick from.
+     * @param frequencies The map of words and their frequencies.
+     * @param previous_guess The previous guess so that we do not 
+     *                   pick the same word twice. 
+     * @return The top word.
+     */
     std::string
     get_top_word_by_freq(std::vector<std::string> words,
                          std::map<std::string, int> frequencies,
@@ -87,7 +133,12 @@ class Solver {
         return best_word;
     }
 
-    // Function to check if the input work contains a letter
+    /** Checks if a word contains a certain letter.
+     * 
+     * @param word The word to check.
+     * @param letter The letter to check for.
+     * @return True if the word contains the letter, false otherwise.
+     */
     bool contains_letter(std::string word, char letter) {
         for (char c : word) {
             if (c == letter) {
@@ -97,7 +148,14 @@ class Solver {
         return false;
     }
 
-    // Function to filter the list of words based on the result of a guess
+    /** Filters a vector of words to only contain words that
+     * could possibly fit the result of the previous guess.
+     * 
+     * @param words The vector of words to filter.
+     * @param result The previous guess' result, which is a vector containing ints between -1 and 1.
+     * @param previous_guess The previous guess.
+     * @return A vector of words that could possibly fit the result of the previous guess.
+     */
     std::vector<std::string> filter_words(std::vector<std::string> words,
                                           std::vector<int> result,
                                           std::string guess) {
@@ -132,6 +190,13 @@ class Solver {
         return filtered_words;
     }
 
+    /** Check that the resulting vector from the guess
+     * is the correct answer. 
+     * 
+     * @param result The result of the guess, which is a vector containing ints between -1 and 1.
+     * @return True if the result is correct, false otherwise.
+     * @see submit_guess
+     */
     bool is_correct_guess(std::vector<int> result) {
         for (int i : result) {
             if (i == -1 || i == 0) {
@@ -142,6 +207,10 @@ class Solver {
     }
 
   public:
+    /** Constructor.
+     * 
+     * @param word_to_guess The word to guess.
+     */
     Solver(std::string word_to_guess) {
         this->word_to_guess = word_to_guess;
         this->starting_guess = "arose";
@@ -150,8 +219,16 @@ class Solver {
         this->frequencies = get_frequencies(lines);
     }
 
-    ~Solver() {}
+    /** Destructor.*/
+    ~Solver() {
+        lines.clear();
+        lines.shrink_to_fit();
+        five_letter_words.clear();
+        five_letter_words.shrink_to_fit();
+        frequencies.clear();        
+    }
 
+    /** Solves the puzzle.*/
     void solve() {
         // std::cout << "Initial guess: " << this->starting_guess;
         std::vector<int> guess_result = submit_guess(this->starting_guess);
@@ -176,6 +253,13 @@ class Solver {
                   << std::endl;
     }
 
+    /** Makes a recommendation for the next word to guess.
+     * 
+     * @param results a vector of vectors containing the results of the previous guesses.
+     * @param previous_guesses a vector of the previous guesses.
+     * @return the next word to guess.
+     * @see get_top_word_by_freq
+     */
     void help_solve(std::vector<std::vector<int>> results,
                     std::vector<std::string> previous_guesses) {
         std::vector<std::string> filtered_words =
@@ -189,10 +273,23 @@ class Solver {
         std::cout << "Recommended guess: " << top_word << std::endl;
     }
 
-    // Function to submit a guess to the Wordle puzzle
-    // Returns an array with 0's for correct letters but wrong places
-    // and 1's for correct letters in the correct places
-    // -1 for incorrect guesses
+    /** Submits a guess to get the results from the guess.
+     * 
+     * The results are a vector of ints between -1 and 1.
+     * -1 means the letter is incorrect, 0 means the letter is correct but in the wrong place,
+     * and 1 means the letter is correct and in the correct place.
+     * 
+     * (NOTE: The results differ from Wordle in that Wordle will 
+     * tell you that one letter is correct in the correct place, and 
+     * any repitition of that letter will be counted as incorrect if the correct
+     * word only has one of that letter. 
+     * In contrast, if your letter is in the right place, the repitition will be
+     * counted as correct but in the wrong place.)
+     * 
+     * @param guess The guess to submit.
+     * @return The results of the guess.
+     * @see is_correct_guess
+     */ 
     std::vector<int> submit_guess(std::string guess) {
         std::vector<int> result;
         for (int i = 0; i < guess.length(); i++) {
@@ -207,8 +304,16 @@ class Solver {
         return result;
     }
 
+    /** Sets the starting guess.
+     * 
+     * @param guess The starting guess.
+    */
     void set_starting_guess(std::string guess) { this->starting_guess = guess; }
 
+    /** Set the word to guess.
+     * 
+     * @param word The word to guess.
+     */
     void set_word_to_guess(std::string word) { this->word_to_guess = word; }
 };
 
