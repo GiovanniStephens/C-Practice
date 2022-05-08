@@ -66,14 +66,14 @@
 - [x] Sum of two numbers matching a target
 - [x] Three-sum problem
 - [x] Wordle solver
-- [ ] Improve the Wordle Solver
+- [x] Improve the Wordle Solver
     - [x] Function to get the next best guess based on current information.
     - [x] Update the solver so that it can take in new words to guess without reloading the data.
     - [x] Save down a shorter word list for a faster import.
     - [x] Should tell you if it did not manage to solve within 6 guesses. (says the number of guesses it took)
-    - [ ] Tidy the code and comment everything well.
-    - [ ] Add some error handling for the reading operations.
-    - [ ] See that there are no further obvious speed optimisations that could be done.
+    - [x] Tidy the code and comment everything well.
+    - [x] Add some error handling for the reading operations.
+    - [x] See that there are no further obvious speed optimisations that could be done.
 - [ ] Look into how web scraping is done
 - [x] Timing functions
 - [x] Division in C++
