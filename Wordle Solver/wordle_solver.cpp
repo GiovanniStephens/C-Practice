@@ -18,14 +18,19 @@
  */
 std::vector<std::string> read_text_file(std::string filename) {
     std::ifstream infile;
-    infile.open(filename);
-    std::string line;
-    std::vector<std::string> lines;
-    while (std::getline(infile, line)) {
-        lines.push_back(line);
+    try {    
+        infile.open(filename);
+        std::string line;
+        std::vector<std::string> lines;
+        while (std::getline(infile, line)) {
+            lines.push_back(line);
+        }
+        infile.close();
+        return lines;
+    } catch (std::exception& e) {
+        std::cout << "Error: " << e.what() << std::endl;
+        return std::vector<std::string>();
     }
-    infile.close();
-    return lines;
 }
 
 /** This class contains the solver functions to 
