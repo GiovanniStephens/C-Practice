@@ -9,7 +9,7 @@
     - [x] Queues
     - [x] Stacks
     - [x] Single linked lists
-    - [ ] Double linked lists
+    - [x] Double linked lists
     - [ ] Trees (Binary search tree BST) (in progress)
     - [ ] Graphs
     - [ ] Heaps
