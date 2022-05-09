@@ -23,6 +23,10 @@
         - [ ] Quick sort
         - [ ] Heap sort
     - [ ] Searching
+        - [ ] Linear search
+        - [ ] Binary search
+        - [ ] Jump search
+        - [ ] Interpolation search
     - [ ] Greedy
     - [ ] Dynamic programming
     - [ ] Backtracking
