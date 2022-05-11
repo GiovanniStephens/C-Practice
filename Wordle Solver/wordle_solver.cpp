@@ -246,7 +246,7 @@ class Solver {
      */
     Solver(std::string word_to_guess) {
         this->word_to_guess = word_to_guess;
-        this->starting_guess = "arose";
+        this->starting_guess = "roate";
         this->lines = read_text_file("five_letter_word_frequencies.txt");
         this->five_letter_words = get_words(lines);
         this->frequencies = get_frequencies(lines);
