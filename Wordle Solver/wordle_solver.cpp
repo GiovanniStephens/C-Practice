@@ -3,6 +3,13 @@
  *
  * Author:  Giovanni Stephens
  * Date:    02/05/2022
+ * 
+ * Update:  11/05/2022
+ * So, the solver is niether very fast nor is it very accurate. 
+ * The average number of guesses is 4.77, which could definiteyly be improved.
+ * 
+ * This article shows a nice improvement on the search heuristic:
+ * https://medium.com/codex/solving-wordle-with-python-a729882e2e8a
  */
 #include <iostream>
 #include <fstream>
@@ -406,6 +413,6 @@ int main() {
     }
     std::cout << "Number of guesses over 6: " << count << std::endl;
     // Print the proportion of guesses over 6
-    std::cout << "Proportion of guesses over 6: " << count / n_guesses.size() << std::endl;
+    std::cout << "Proportion of guesses over 6: " << (double) count / (double) n_guesses.size() << std::endl;
     return 0;
 }
