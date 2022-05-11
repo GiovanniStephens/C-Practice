@@ -33,6 +33,12 @@ std::vector<std::string> read_text_file(std::string filename) {
     }
 }
 
+/** Reads the Wordle answers csv file and returns a vector of the answers.
+ * 
+ * @param file_name The name of the file to be read.
+ * @return A vector of strings, where each element is the second column from the file.
+ * @see read_text_file
+ */
 std::vector<std::string> read_past_answers_from_csv(std::string filename) {
     std::vector<std::string> lines;
     std::vector<std::string> answers;
