@@ -78,7 +78,7 @@
     - [x] Tidy the code and comment everything well.
     - [x] Add some error handling for the reading operations.
     - [x] See that there are no further obvious speed optimisations that could be done.
-- [ ] Look into how web scraping is done
+- [ ] <s>Look into how web scraping is done</s> (Won't do)
 - [x] Timing functions
 - [x] Division in C++
 - [ ] Statistical models
