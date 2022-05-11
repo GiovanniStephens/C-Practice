@@ -33,6 +33,21 @@ std::vector<std::string> read_text_file(std::string filename) {
     }
 }
 
+std::vector<std::string> read_past_answers_from_csv(std::string filename) {
+    std::vector<std::string> lines;
+    std::vector<std::string> answers;
+    lines = read_text_file(filename);
+    std::string delimiter = ",";
+    for (auto line : lines) {
+        // Grab the second element in the line, which is the answer
+        std::string answer = line.substr(line.find(delimiter) + 1);
+        answer = answer.substr(0, answer.find(delimiter));
+        answers.push_back(answer);
+    }
+    return answers;
+}
+
+
 /** This class contains the solver functions to 
  * guess the Wordle puzzle of the day.
  */
@@ -333,14 +348,21 @@ int main() {
     //     solver.set_word_to_guess(words_to_guess[i]);
     //     solver.solve();
     // }
-    Solver solver = Solver("cigar");
-    std::vector<std::string> previous_guesses;
-    std::vector<std::vector<int>> results;
-    previous_guesses.push_back("shape");
-    previous_guesses.push_back("stout");
-    previous_guesses.push_back("grist");
-    previous_guesses.push_back("twist");
-    results = {{0,-1,-1,-1,-1}, {0,0,-1,-1,1}, {-1,-1,0,1,1}, {0,-1,0,1,1}};
-    solver.help_solve(results, previous_guesses);
+    // Solver solver = Solver("cigar");
+    // std::vector<std::string> previous_guesses;
+    // std::vector<std::vector<int>> results;
+    // previous_guesses.push_back("shape");
+    // previous_guesses.push_back("stout");
+    // previous_guesses.push_back("grist");
+    // previous_guesses.push_back("twist");
+    // results = {{0,-1,-1,-1,-1}, {0,0,-1,-1,1}, {-1,-1,0,1,1}, {0,-1,0,1,1}};
+    // solver.help_solve(results, previous_guesses);
+    std::vector<std::string> past_answers = read_past_answers_from_csv("wordle_answers.csv");
+    Solver solver(past_answers[1]);
+    solver.solve();
+    for (int i = 2; i < past_answers.size(); i++) {
+        solver.set_word_to_guess(past_answers[i]);
+        solver.solve();
+    }
     return 0;
 }
