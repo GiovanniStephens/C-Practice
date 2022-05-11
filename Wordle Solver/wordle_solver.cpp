@@ -255,7 +255,7 @@ class Solver {
     }
 
     /** Solves the puzzle.*/
-    void solve() {
+    int solve() {
         // std::cout << "Initial guess: " << this->starting_guess;
         std::vector<int> guess_result = submit_guess(this->starting_guess);
         // Filter the list of words based on the result of the guess
@@ -277,6 +277,7 @@ class Solver {
         std::cout << "Congratulations! You found the word: " << word_to_guess;
         std::cout << " in " << previous_guesses.size() + 1 << " guesses."
                   << std::endl;
+        return previous_guesses.size() + 1;
     }
 
     /** Makes a recommendation for the next word to guess.
@@ -363,12 +364,48 @@ int main() {
     // previous_guesses.push_back("twist");
     // results = {{0,-1,-1,-1,-1}, {0,0,-1,-1,1}, {-1,-1,0,1,1}, {0,-1,0,1,1}};
     // solver.help_solve(results, previous_guesses);
+    std::vector<int> n_guesses;
     std::vector<std::string> past_answers = read_past_answers_from_csv("wordle_answers.csv");
     Solver solver(past_answers[1]);
     solver.solve();
     for (int i = 2; i < past_answers.size(); i++) {
         solver.set_word_to_guess(past_answers[i]);
-        solver.solve();
+        n_guesses.push_back(solver.solve());
     }
+    // print average number of guesses
+    double sum = 0;
+    for (int i = 0; i < n_guesses.size(); i++) {
+        sum += n_guesses[i];
+    }
+    std::cout << "Average number of guesses: " << sum / (double) n_guesses.size() << std::endl;
+
+    // Print max number of guesses
+    int max = 0;
+    for (int i = 0; i < n_guesses.size(); i++) {
+        if (n_guesses[i] > max) {
+            max = n_guesses[i];
+        }
+    }
+    std::cout << "Max number of guesses: " << max << std::endl;
+
+    // Print min number of guesses
+    int min = n_guesses[0];
+    for (int i = 0; i < n_guesses.size(); i++) {
+        if (n_guesses[i] < min) {
+            min = n_guesses[i];
+        }
+    }
+    std::cout << "Min number of guesses: " << min << std::endl;
+
+    // Count the number of guesses over 6
+    int count = 0;
+    for (int i = 0; i < n_guesses.size(); i++) {
+        if (n_guesses[i] > 6) {
+            count++;
+        }
+    }
+    std::cout << "Number of guesses over 6: " << count << std::endl;
+    // Print the proportion of guesses over 6
+    std::cout << "Proportion of guesses over 6: " << count / n_guesses.size() << std::endl;
     return 0;
 }
