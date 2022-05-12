@@ -45,7 +45,7 @@
     - [x] reading a file line by line and printing
     - [ ] <s> reading a file line by line and printing with a counter</s> (won't do)
 - [ ] More file operations
-    - [ ] Parsing .csv files
+    - [x] Parsing .csv files
     - [ ] Parsing .json files
 - [ ] Pointers
     - [ ] pointers to functions
