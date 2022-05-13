@@ -12,6 +12,9 @@
     - [x] Double linked lists
     - [ ] Trees (Binary search tree BST) (in progress)
     - [ ] Graphs
+        - [ ] Fully connected graphs
+        - [ ] Directed graphs
+        - [ ] Undirected graphs 
     - [ ] Heaps
     - [ ] Hash tables
 - [ ] Algorithms:
