@@ -14,7 +14,7 @@
     - [ ] Graphs
         - [ ] Fully connected graphs
         - [ ] Directed graphs
-        - [ ] Undirected graphs 
+        - [x] Undirected graphs 
     - [ ] Heaps
     - [ ] Hash tables
 - [ ] Algorithms:
