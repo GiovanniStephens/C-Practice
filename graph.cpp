@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 // Node
 class node {
@@ -100,6 +101,32 @@ int main() {
     g.add_edge("B", "C");
 
     g.print();
+
+    // dfs to find if the graph is fully connected
+    bool connected = true;
+    std::vector<node*> visited;
+    std::vector<node*> stack;
+    stack.push_back(g.get_node("A"));
+    while (!stack.empty()) {
+        node* curr = stack.back();
+        stack.pop_back();
+        if (find(visited.begin(), visited.end(), curr) == visited.end()) {
+            visited.push_back(curr);
+            for (auto edge : curr->edges) {
+                stack.push_back(edge);
+            }
+        }
+    }
+    for (auto node : g.get_nodes()) {
+        if (find(visited.begin(), visited.end(), node) == visited.end()) {
+            connected = false;
+        }
+    }
+    if (connected) {
+        std::cout << "The graph is connected" << std::endl;
+    } else {
+        std::cout << "The graph is not connected" << std::endl;
+    }
 
     return 0;
 }
