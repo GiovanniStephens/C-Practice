@@ -53,11 +53,15 @@
 - [ ] Pointers
     - [ ] pointers to functions
     - [x] pointers to objects
-    - [ ] pointers to arrays
+    - [ ] <s>pointers to arrays</s>
     - [x] pointers to strings
     - [ ] pointers to dictionaries
     - [x] pointers to lists
-    - [ ] pointers to vectors
+    - [x] pointers to vectors
+- [ ] Multiprocessing
+    - [ ] Creating threads
+    - [ ] Creating processes
+    - [ ] Work out what else I can learn in this domain.
 - [x] Stucts
 - [x] Basic random numbers
 - [x] Roman numeral converter
