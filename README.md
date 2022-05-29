@@ -20,7 +20,7 @@
 - [ ] Algorithms:
     - [ ] Sorting
         - [x] Bubble sort
-        - [ ] Insertion sort
+        - [x] Insertion sort
         - [ ] Selection sort
         - [ ] Merge sort
         - [ ] Quick sort
