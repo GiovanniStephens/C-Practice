@@ -25,6 +25,9 @@
         - [ ] Merge sort
         - [ ] Quick sort
         - [ ] Heap sort
+        - [ ] Bucket sort
+        - [ ] Count sort
+        - [ ] Radix sort
     - [ ] Searching
         - [ ] Linear search
         - [ ] Binary search
