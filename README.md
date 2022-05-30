@@ -22,7 +22,7 @@
         - [x] Bubble sort
         - [x] Insertion sort
         - [x] Selection sort
-        - [ ] Merge sort
+        - [x] Merge sort
         - [ ] Quick sort
         - [ ] Heap sort
         - [ ] Bucket sort
