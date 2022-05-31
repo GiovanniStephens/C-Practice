@@ -23,7 +23,7 @@
         - [x] Insertion sort
         - [x] Selection sort
         - [x] Merge sort
-        - [ ] Quick sort
+        - [x] Quick sort
         - [ ] Heap sort
         - [ ] Bucket sort
         - [ ] Count sort
