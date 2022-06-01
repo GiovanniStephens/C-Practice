@@ -7,7 +7,7 @@
  */
 #include <iostream>
 #include <string>
-#include <limits>
+#include <climits>
 
 class Solution {
 public:
