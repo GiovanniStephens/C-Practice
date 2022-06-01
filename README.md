@@ -26,7 +26,7 @@
         - [x] Quick sort
         - [x] Heap sort
         - [x] Bucket sort
-        - [ ] Count sort
+        - [x] Count sort
         - [ ] Radix sort
     - [ ] Searching
         - [ ] Linear search
