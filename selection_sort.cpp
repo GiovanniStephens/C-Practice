@@ -7,6 +7,7 @@
  */
 
 #include<iostream>
+#include "sorting.h"
 
 void selection_sort(int *arr, int size) {
     int min_index;
@@ -22,15 +23,4 @@ void selection_sort(int *arr, int size) {
         arr[i] = arr[min_index];
         arr[min_index] = temp;
     }
-}
-
-int main() {
-    int arr[] = {5, 4, 3, 2, 1};
-    int size = sizeof(arr) / sizeof(arr[0]);
-    selection_sort(arr, size);
-    for(int i = 0; i < size; i++) {
-        std::cout << arr[i] << " ";
-    }
-    std::cout << std::endl;
-    return 0;
 }
