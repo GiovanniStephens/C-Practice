@@ -5,6 +5,7 @@
  * Date:    29/05/2022
  */
 #include <iostream>
+#include "sorting.h"
 
 void insertion_sort(int *array, int size) {
     int i, j, temp;
@@ -15,15 +16,4 @@ void insertion_sort(int *array, int size) {
         }
         array[j + 1] = temp;
     }
-}
-
-int main() {
-    int array[10] = {5, 2, 4, 6, 1, 3, 9, 7, 8, 0};
-    int size = 10;
-    insertion_sort(array, size);
-    for (int i = 0; i < size; i++) {
-        std::cout << array[i] << " ";
-    }
-    std::cout << std::endl;
-    return 0;
 }
