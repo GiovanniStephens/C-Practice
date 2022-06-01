@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include "sorting.h"
 
 void merge(int *arr, int left, int mid, int right) {
     int *temp = new int[right - left + 1];
@@ -36,15 +37,4 @@ void merge_sort(int *arr, int left, int right) {
         merge_sort(arr, mid + 1, right);
         merge(arr, left, mid, right);
     }
-}
-
-int main() {
-    int arr[] = {5, 2, 4, 6, 1, 3};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    merge_sort(arr, 0, n - 1);
-    for (int i = 0; i < n; i++) {
-        std::cout << arr[i] << " ";
-    }
-    std::cout << std::endl;
-    return 0;
 }
