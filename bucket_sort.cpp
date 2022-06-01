@@ -8,32 +8,33 @@
 #include<vector>
 #include<algorithm>
 
-void bucket_sort(std::vector<int> &arr) {
-    int n = arr.size();
-    int max = *std::max_element(arr.begin(), arr.end());
-    int min = *std::min_element(arr.begin(), arr.end());
-    std::vector<int> bucket(max - min + 1, 0);
-    std::vector<int> sorted(n, 0);
-
-    for (int i = 0; i < n; ++i)
-        ++bucket[arr[i] - min];
-
-    for (int i = 1; i < bucket.size(); ++i)
-        bucket[i] += bucket[i - 1];
-
-    for (int i = n - 1; i >= 0; --i) {
-        sorted[--bucket[arr[i] - min]] = arr[i];
+void bucket_sort(int arr[], int n) {
+    // 1) Create n empty buckets
+    std::vector<int> b[n];
+ 
+    // 2) Put array elements
+    // in different buckets
+    for (int i = 0; i < n; i++) {
+        int bi = arr[i]; // Index in bucket
+        b[bi].push_back(arr[i]);
     }
-
-    arr = sorted;
+ 
+    // 3) Sort individual buckets
+    for (int i = 0; i < n; i++)
+        sort(b[i].begin(), b[i].end());
+ 
+    // 4) Concatenate all buckets into arr[]
+    int index = 0;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < b[i].size(); j++)
+            arr[index++] = b[i][j];
 }
 
 
 int main() {
-    std::vector<int> arr = { 12, 11, 13, 5, 6, 7 };
+    int arr[] = { 2, 5, 3, 0, 2, 3, 0, 3 };
     int n = sizeof(arr) / sizeof(arr[0]);
-
-    bucket_sort(arr);
+    bucket_sort(arr, n);
 
     for (int i = 0; i < n; ++i)
         std::cout << arr[i] << " ";
