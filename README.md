@@ -100,7 +100,10 @@
             - [ ] <s>Maybe transposition and multiplication can happen at the same time to save space and time.</s>
     - [ ] <s>Linear regression using a library</s>
     - [ ] Logistic regression using OLS
-    - [ ] Linear regression estimated using ML
+    - [ ] Linear regression estimated using MLE
+        - [ ] Estimating the AR parameter using Yule Walker method.
+        - [ ] Integrating.
+        - [ ] Estimating the MA parameter using Hannan-Rissanen procedure
     - [ ] Multiple Linear Regression
     - [ ] Hypothesis testing
     - [ ] AR Model
