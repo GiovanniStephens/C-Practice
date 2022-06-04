@@ -107,6 +107,7 @@
     - [ ] MA Models (Hannan-Rissanen)
     - [ ] ARMA Models
         - [ ] Checking for stationarity
+        - [ ] Check for homoskedasticity
         - [ ] Estimating the AR parameter using <s>Yule Walker method</s> OLS.
         - [ ] Estimating the MA parameter using Hannan-Rissanen procedure
             - [ ] Fit an AR model to the data
