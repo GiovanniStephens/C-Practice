@@ -103,12 +103,15 @@
     - [ ] Linear regression estimated using a minimizing/maximization approach.
     - [ ] Multiple Linear Regression
     - [ ] Hypothesis testing
-    - [ ] AR Model (Yule Walker)
+    - [ ] AR Model (OLS)
     - [ ] MA Models (Hannan-Rissanen)
     - [ ] ARMA Models
-        - [ ] Estimating the AR parameter using Yule Walker method.
-        - [ ] Integrating.
+        - [ ] Checking for stationarity
+        - [ ] Estimating the AR parameter using <s>Yule Walker method</s> OLS.
         - [ ] Estimating the MA parameter using Hannan-Rissanen procedure
+            - [ ] Fit an AR model to the data
+            - [ ] Extract the residuals
+            - [ ] Fit the ARMA model using the above residuals and lagged data using OLS.
     - [ ] ARIMA Models
     - [ ] Auto-arima model
 - [ ] Machine learning algorithms:
