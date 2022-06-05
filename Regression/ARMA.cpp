@@ -18,6 +18,12 @@
 #include <map>
 
 class Data {
+    private:
+        bool file_exists(std::string filename){ 
+            std::ifstream infile(filename);
+            return infile.good();
+        }
+
     public:
         std::vector<std::string> dates;
         std::vector<float> open;
@@ -40,26 +46,30 @@ class Data {
         }
 
         void read_csv(std::string filename) {
-            std::ifstream file(filename);
-            std::string line;
-            while (std::getline(file, line)) {
-                // skip the first line
-                if (line.find("Date") != std::string::npos) {
-                    continue;
+            if (file_exists(filename)) {
+                std::ifstream file(filename);
+                std::string line;
+                while (std::getline(file, line)) {
+                    // skip the first line
+                    if (line.find("Date") != std::string::npos) {
+                        continue;
+                    }
+                    std::stringstream line_stream(line);
+                    std::string cell;
+                    std::vector<std::string> row;
+                    while (std::getline(line_stream, cell, ',')) {
+                        row.push_back(cell);
+                    }
+                    this->dates.push_back(row[0]);
+                    this->open.push_back(std::stof(row[1]));
+                    this->high.push_back(std::stof(row[2]));
+                    this->low.push_back(std::stof(row[3]));
+                    this->close.push_back(std::stof(row[4]));
+                    this->adj_close.push_back(std::stof(row[5]));
+                    this->volume.push_back(std::stof(row[6]));
                 }
-                std::stringstream line_stream(line);
-                std::string cell;
-                std::vector<std::string> row;
-                while (std::getline(line_stream, cell, ',')) {
-                    row.push_back(cell);
-                }
-                this->dates.push_back(row[0]);
-                this->open.push_back(std::stof(row[1]));
-                this->high.push_back(std::stof(row[2]));
-                this->low.push_back(std::stof(row[3]));
-                this->close.push_back(std::stof(row[4]));
-                this->adj_close.push_back(std::stof(row[5]));
-                this->volume.push_back(std::stof(row[6]));
+            } else {
+                std::cout << "File: " << filename << " not found" << std::endl;
             }
         }
 };
