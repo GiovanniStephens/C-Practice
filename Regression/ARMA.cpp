@@ -74,6 +74,14 @@ class Data {
         }
 };
 
+std::vector<float> calculate_returns(std::vector<float> prices) {
+    std::vector<float> returns;
+    for (int i = 1; i < prices.size(); i++) {
+        returns.push_back((prices[i] - prices[i-1]) / prices[i-1]);
+    }
+    return returns;
+}
+
 
 int main() {
     Data prices = Data();
@@ -82,6 +90,14 @@ int main() {
     // print first 5 rows of prices
     for (int i = 0; i < 5; i++) {
         std::cout << prices.dates[i] << " " << prices.open[i] << " " << prices.high[i] << " " << prices.low[i] << " " << prices.close[i] << " " << prices.adj_close[i] << " " << prices.volume[i] << std::endl;
+    }
+
+    // calculate returns
+    std::vector<float> returns = calculate_returns(prices.adj_close);
+
+    // print first 5 rows of returns
+    for (int i = 0; i < 5; i++) {
+        std::cout << returns[i] << std::endl;
     }
     
     return 0;
