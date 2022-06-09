@@ -88,10 +88,17 @@ int main() {
     // calculate returns
     std::vector<float> returns = calculate_returns(prices.adj_close);
 
-    // print first 5 rows of returns
+    // calculate autocorrelation
+    std::vector<float> acf_values = acf(returns);
+
+
+    // print first 5 rows of ACF values
     for (int i = 0; i < 5; i++) {
-        std::cout << returns[i] << std::endl;
+        std::cout << acf_values[i] << std::endl;
     }
+
+    // Print number of lags
+    std::cout << "Number of lags: " << acf_values.size() << std::endl;
     
     return 0;
 }
