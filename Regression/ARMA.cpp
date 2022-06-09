@@ -16,6 +16,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include "ARMA.h"
 
 class Data {
     private:
