@@ -222,6 +222,7 @@ class Timer {
         }
 };
 
+/*
 int main() {
     std::vector<std::vector<double>> x = {
         {1, 2, 3},
@@ -262,3 +263,4 @@ int main() {
     std::cout << "Prediction: " << lr.predict(x_test) << std::endl;
     return 0;
 }
+*/
