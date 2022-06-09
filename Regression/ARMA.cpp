@@ -74,14 +74,6 @@ class Data {
         }
 };
 
-std::vector<float> calculate_returns(std::vector<float> prices) {
-    std::vector<float> returns;
-    for (int i = 1; i < prices.size(); i++) {
-        returns.push_back((prices[i] - prices[i-1]) / prices[i-1]);
-    }
-    return returns;
-}
-
 
 int main() {
     Data prices = Data();
