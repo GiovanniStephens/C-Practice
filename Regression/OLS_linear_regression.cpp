@@ -178,21 +178,6 @@ double LinearRegressor::predict(std::vector<double> x) {
     return y_prediction;
 }
 
-class Timer {
-    using clock_type = std::chrono::steady_clock;
-    using second_clock_type = std::chrono::duration<double, std::ratio<1>>;
-
-    std::chrono::time_point<clock_type> start_time{ clock_type::now() };
-
-    public:
-        void reset() {
-            start_time = clock_type::now();
-        }
-
-        double elapsed_time() const {
-            return std::chrono::duration_cast<second_clock_type>(clock_type::now() - start_time).count();
-        }
-};
 
 /*
 int main() {

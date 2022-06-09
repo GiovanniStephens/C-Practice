@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include "utilities.h"
+#include "Regressor.h"
 
 std::vector<float> calculate_returns(std::vector<float> prices) {
     std::vector<float> returns;
@@ -16,4 +17,15 @@ std::vector<float> calculate_returns(std::vector<float> prices) {
     }
     return returns;
 }
+
+void Timer::reset() {
+    start_time = clock_type::now();
+}
+
+double Timer::elapsed_time() const {
+    return std::chrono::duration_cast<second_clock_type>(clock_type::now() - start_time).count();
+}
+
+
+
 
