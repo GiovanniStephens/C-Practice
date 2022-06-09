@@ -5,6 +5,8 @@
 #include <chrono>
 
 std::vector<float> calculate_returns(std::vector<float> prices);
+float mean(std::vector<float> x);
+std::vector<float> acf(std::vector<float> x, int nlags=-1);
 
 // Timer to determine how long things are taking.
 class Timer {
