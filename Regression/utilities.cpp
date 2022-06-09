@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <vector>
+#include "utilities.h"
 
 std::vector<float> calculate_returns(std::vector<float> prices) {
     std::vector<float> returns;
@@ -15,3 +16,4 @@ std::vector<float> calculate_returns(std::vector<float> prices) {
     }
     return returns;
 }
+
