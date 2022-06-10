@@ -55,6 +55,17 @@ std::vector<float> acf(std::vector<float> x, int nlags) {
     return acf;
 }
 
+std::vector<float> pacf(std::vector<float> x, int nlags) {
+    std::vector<float> pacf;
+    if (nlags == -1) {
+        nlags = (int) std::min(10 * std::log10(x.size()), (double) x.size()/2 - 1);
+    }
+    
+    // TODO: Implement pacf
+
+    return pacf;
+}
+
 void Timer::reset() {
     start_time = clock_type::now();
 }
