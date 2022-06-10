@@ -29,7 +29,7 @@ Matrix::~Matrix() {
     matrix.clear();
 }
 
-double& Matrix::operator()(int i,int j) {
+float& Matrix::operator()(int i,int j) {
     return matrix[i][j];
 }
 
@@ -52,14 +52,14 @@ Matrix Matrix::cofactor(unsigned int p, unsigned int q) {
     return cofactor;
 }
 
-double Matrix::determinant() {
+float Matrix::determinant() {
     // calculate determinant recursively by computing the determinant of the cofactors.
     if(n == 1){
         return matrix[0][0];
     }
 
-    double Det = 0;
-    double s;
+    float Det = 0;
+    float s;
     Matrix Cof(n-1, n-1);
 
     for(unsigned int i = 0; i < n; i++){
@@ -72,11 +72,11 @@ double Matrix::determinant() {
 
 Matrix Matrix::inverse(){
     // get determinant of the matrix
-    double Det = this->determinant();
+    float Det = this->determinant();
 
     Matrix Cof(n-1, n-1);
     Matrix Inv(n, n);
-    double s;
+    float s;
 
     // calculate inverse as the transpose of the adjugate matrix.
     for(size_t i = 0; i < n; i++){
@@ -123,7 +123,7 @@ void Matrix::print() {
 }
 
 
-LinearRegressor::LinearRegressor(std::vector<std::vector<double>> x, std::vector<double> y) {
+LinearRegressor::LinearRegressor(std::vector<std::vector<float>> x, std::vector<float> y) {
     this->X = Matrix(x.size(), x[0].size() + 1);
     this->Y = Matrix(y.size(), 1);
     for (int i = 0; i < x.size(); i++) {
@@ -169,8 +169,8 @@ void LinearRegressor::fit() {
     }
 }
 
-double LinearRegressor::predict(std::vector<double> x) {
-    double y_prediction;
+float LinearRegressor::predict(std::vector<float> x) {
+    float y_prediction;
     y_prediction = coefficients[0];
     for (int i = 1; i < coefficients.size(); i++) {
         y_prediction += coefficients[i] * x[i - 1];
@@ -181,14 +181,14 @@ double LinearRegressor::predict(std::vector<double> x) {
 
 /*
 int main() {
-    std::vector<std::vector<double>> x = {
+    std::vector<std::vector<float>> x = {
         {1, 2, 3},
         {3, 2, 2},
         {3.5, 2.5, 1},
         {5, 2, 0}
     };
 
-    std::vector<double> y = {
+    std::vector<float> y = {
         1,
         2,
         3,
@@ -207,7 +207,7 @@ int main() {
     std::cout << std::endl;
 
     // Make a prediction
-    std::vector<double> x_test = {
+    std::vector<float> x_test = {
         4,
         2,
         3

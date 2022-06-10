@@ -6,16 +6,16 @@ public:
     Matrix(int rows, int cols);
     Matrix();
     ~Matrix();
-    double& operator()(int i,int j);
+    float& operator()(int i,int j);
     Matrix cofactor(unsigned int p, unsigned int q);
-    double determinant();
+    float determinant();
     Matrix inverse();
     Matrix transpose();
     Matrix multiply(Matrix m);
     void print();
     unsigned int n;
 private:
-    std::vector<std::vector<double>> matrix;
+    std::vector<std::vector<float>> matrix;
 };
 
 class LinearRegressor {
@@ -23,11 +23,11 @@ class LinearRegressor {
         Matrix X;
         Matrix Y;
     public:
-        std::vector<double> coefficients;
-        LinearRegressor(std::vector<std::vector<double>> x, std::vector<double> y);
+        std::vector<float> coefficients;
+        LinearRegressor(std::vector<std::vector<float>> x, std::vector<float> y);
         ~LinearRegressor();
         void fit();
-        double predict(std::vector<double> x);
+        float predict(std::vector<float> x);
 };
 
 #endif
