@@ -3,7 +3,7 @@
 - [x] A basic print line function.
 - [x] Data structures:
     - [x] Lists/arrays
-    - [x] <s>Linked lists</s> vectors
+    - [x] vectors
     - [x] Dictionaries
 - [ ] Data structures from scratch:
     - [x] Queues
@@ -49,14 +49,12 @@
     - [x] appending to a file
     - [x] reading a file line by line
     - [x] reading a file line by line and printing
-    - [ ] <s> reading a file line by line and printing with a counter</s> (won't do)
 - [ ] More file operations
     - [x] Parsing .csv files
     - [ ] Parsing .json files
 - [ ] Pointers
     - [ ] pointers to functions
     - [x] pointers to objects
-    - [ ] <s>pointers to arrays</s>
     - [x] pointers to strings
     - [ ] pointers to dictionaries
     - [x] pointers to lists
@@ -88,7 +86,7 @@
     - [x] Tidy the code and comment everything well.
     - [x] Add some error handling for the reading operations.
     - [x] See that there are no further obvious speed optimisations that could be done.
-- [ ] <s>Look into how web scraping is done</s> (Won't do)
+(Won't do)
 - [x] Timing functions
 - [x] Division in C++
 - [ ] Statistical models
@@ -97,8 +95,6 @@
             - [x] matrix inversion (could this be parallelised?)
             - [x] matrix multiplication
             - [x] matrix transposition
-            - [ ] <s>Maybe transposition and multiplication can happen at the same time to save space and time.</s>
-    - [ ] <s>Linear regression using a library</s>
     - [ ] Logistic regression using OLS
     - [x] Linear regression estimated using a minimizing/maximization approach.
     - [x] Multiple Linear Regression
@@ -108,7 +104,7 @@
     - [ ] ARMA Models
         - [ ] Checking for stationarity
         - [ ] Check for homoskedasticity
-        - [ ] Estimating the AR parameter using <s>Yule Walker method</s> OLS.
+        - [ ] Estimating the AR parameter using OLS.
         - [ ] Estimating the MA parameter using Hannan-Rissanen procedure
             - [ ] Fit an AR model to the data
             - [ ] Extract the residuals
