@@ -100,8 +100,8 @@
             - [ ] <s>Maybe transposition and multiplication can happen at the same time to save space and time.</s>
     - [ ] <s>Linear regression using a library</s>
     - [ ] Logistic regression using OLS
-    - [ ] Linear regression estimated using a minimizing/maximization approach.
-    - [ ] Multiple Linear Regression
+    - [x] Linear regression estimated using a minimizing/maximization approach.
+    - [x] Multiple Linear Regression
     - [ ] Hypothesis testing
     - [ ] AR Model (OLS)
     - [ ] MA Models (Hannan-Rissanen)
