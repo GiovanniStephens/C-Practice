@@ -62,7 +62,13 @@ std::vector<float> pacf(std::vector<float> x, int nlags) {
     }
     
     // TODO: Implement pacf
+    // For the ith lag, calculate the partial autocorrelation of the ith lag.
+        // you'd fit the regression model y_t with all the lags up to the ith lag.
+        
+        // I need to work out whether I need to work out the autocorrrelation of the
+        // residuals or the original data... I do not know. 
 
+        // Add the partial autocorrelation to the vector.
     return pacf;
 }
 
