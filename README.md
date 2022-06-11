@@ -102,7 +102,7 @@
     - [ ] Logistic regression using OLS
     - [x] Linear regression estimated using a minimizing/maximization approach.
     - [x] Multiple Linear Regression
-    - [ ] Hypothesis testing
+    - [x] Hypothesis testing
     - [ ] AR Model (OLS)
     - [ ] MA Models (Hannan-Rissanen)
     - [ ] ARMA Models
