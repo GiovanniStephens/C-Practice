@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <iostream>
+#include <cmath>
 
 float minimum(std::vector<std::vector<float>> *data) {
     float min = data->at(0).at(0);
@@ -49,6 +50,69 @@ std::vector<std::vector<float>> initialise_centroids(std::vector<std::vector<flo
     return centroids;
 }
 
+float euclidian_distance(std::vector<float> x, std::vector<float> y) {
+    float distance = 0;
+    for (int i = 0; i < x.size(); i++) {
+        distance += pow(x.at(i) - y.at(i), 2);
+    }
+    return sqrt(distance);
+}
+
+void update_centroid(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, std::vector<int> *clusters) {
+    for (int i = 0; i < centroids->size(); i++) {
+        std::vector<float> centroid;
+        for (int j = 0; j < centroids->at(0).size(); j++) {
+            centroid.push_back(0);
+        }
+        int count = 0;
+        for (int j = 0; j < clusters->size(); j++) {
+            if (clusters->at(j) == i) {
+                for (int k = 0; k < data->at(j).size(); k++) {
+                    centroid.at(k) += data->at(j).at(k);
+                }
+                count++;
+            }
+        }
+        for (int j = 0; j < centroid.size(); j++) {
+            centroid.at(j) /= count;
+        }
+        centroids->at(i) = centroid;
+    }
+}
+
+int classify(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, int item) {
+    int index = -1;
+    float min = 1000000;
+    for (int i = 0; i < centroids->size(); i++) {
+        float distance = euclidian_distance(data->at(item), centroids->at(i));
+        if (distance < min) {
+            min = distance;
+            index = i;
+        }
+    }
+    return index;
+}
+
+std::vector<std::vector<float>> k_means(std::vector<std::vector<float>> *data, int k) {
+    std::vector<std::vector<float>> centroids = initialise_centroids(data, k);
+    std::vector<int> clusters(data->size(), 0);
+    bool converged = false;
+    while (!converged) {
+        converged = true;
+        for (int i = 0; i < data->size(); i++) {
+            int index = classify(data, &centroids, i);
+            if (index != clusters.at(i)) {
+                converged = false;
+            }
+            clusters.at(i) = index;
+        }
+        update_centroid(data, &centroids, &clusters);
+
+    }
+    return centroids;
+}
+
+
 
 int main() {
     // create a 2d vector of floats with two clusters
@@ -64,30 +128,17 @@ int main() {
         {4.0, 5.0}
     };
 
-    // Find the minimum value in the data
-    float min = minimum(&data);
-
-    // Print the minimum
-    std::cout << "Minimum: " << min << std::endl;
-
-    // Find the maximum value in the data
-    float max = maximum(&data);
-
-    // Print the maximum
-    std::cout << "Maximum: " << max << std::endl;
-
-    // Initialise the centroids
-    std::vector<std::vector<float>> centroids = initialise_centroids(&data, 2);
-
+    // Run the k-means algorithm with k = 2
+    std::vector<std::vector<float>> centroids_2 = k_means(&data, 2);
+    
     // Print the centroids
     std::cout << "Centroids: " << std::endl;
-    for (int i = 0; i < centroids.size(); i++) {
-        for (int j = 0; j < centroids.at(i).size(); j++) {
-            std::cout << centroids.at(i).at(j) << " ";
+    for (int i = 0; i < centroids_2.size(); i++) {
+        for (int j = 0; j < centroids_2.at(i).size(); j++) {
+            std::cout << centroids_2.at(i).at(j) << " ";
         }
         std::cout << std::endl;
     }
-    
 
     return 0;
 }
