@@ -50,10 +50,10 @@ std::vector<std::vector<float>> initialise_centroids(std::vector<std::vector<flo
     return centroids;
 }
 
-float euclidian_distance(std::vector<float> x, std::vector<float> y) {
+float euclidian_distance(std::vector<float> *x, std::vector<float> *y) {
     float distance = 0;
-    for (int i = 0; i < x.size(); i++) {
-        distance += pow(x.at(i) - y.at(i), 2);
+    for (int i = 0; i < x->size(); i++) {
+        distance += pow(x->at(i) - y->at(i), 2);
     }
     return sqrt(distance);
 }
@@ -84,7 +84,7 @@ int classify(std::vector<std::vector<float>> *data, std::vector<std::vector<floa
     int index = -1;
     float min = 1000000;
     for (int i = 0; i < centroids->size(); i++) {
-        float distance = euclidian_distance(data->at(item), centroids->at(i));
+        float distance = euclidian_distance(&data->at(item), &centroids->at(i));
         if (distance < min) {
             min = distance;
             index = i;
