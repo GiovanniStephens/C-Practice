@@ -10,39 +10,43 @@
 #include <iostream>
 #include <cmath>
 
-float minimum(std::vector<std::vector<float>> *data) {
-    float min = data->at(0).at(0);
-    for (int i = 0; i < data->size(); i++) {
-        for (int j = 0; j < data->at(i).size(); j++) {
-            if (data->at(i).at(j) < min) {
-                min = data->at(i).at(j);
+std::vector<float> minimum(std::vector<std::vector<float>> *data) {
+    std::vector<float> min;
+    for (int i = 0; i < data->at(0).size(); i++) {
+        float min_i = data->at(0).at(i);
+        for (int j = 0; j < data->size(); j++) {
+            if (data->at(j).at(i) < min_i) {
+                min_i = data->at(j).at(i);
             }
         }
+        min.push_back(min_i);
     }
     return min;
 }
 
-float maximum(std::vector<std::vector<float>> *data) {
-    float max = data->at(0).at(0);
-    for (int i = 0; i < data->size(); i++) {
-        for (int j = 0; j < data->at(i).size(); j++) {
-            if (data->at(i).at(j) > max) {
-                max = data->at(i).at(j);
+std::vector<float> maximum(std::vector<std::vector<float>> *data) {
+    std::vector<float> max;
+    for (int i = 0; i < data->at(0).size(); i++) {
+        float max_i = data->at(0).at(i);
+        for (int j = 0; j < data->size(); j++) {
+            if (data->at(j).at(i) > max_i) {
+                max_i = data->at(j).at(i);
             }
         }
+        max.push_back(max_i);
     }
     return max;
 }
 
 std::vector<std::vector<float>> initialise_centroids(std::vector<std::vector<float>> *data, int k) {
     std::vector<std::vector<float>> centroids;
-    float min = minimum(data);
-    float max = maximum(data);
+    std::vector<float> min = minimum(data);
+    std::vector<float> max = maximum(data);
 
     for (int i = 0; i < k; i++) {
         std::vector<float> centroid;
         for (int j = 0; j < data->at(0).size(); j++) {
-            centroid.push_back(min + (max - min) * (float)rand() / (float)RAND_MAX);
+            centroid.push_back(min.at(j) + (max.at(j) - min.at(j)) * (float)rand() / (float)RAND_MAX);
         }
         centroids.push_back(centroid);
     }
