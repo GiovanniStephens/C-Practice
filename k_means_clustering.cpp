@@ -9,6 +9,38 @@
 #include <vector>
 #include <iostream>
 #include <cmath>
+#include <string>
+
+class k_means {
+    private:
+        std::vector<std::vector<double>> data;
+        int n_initialisations;
+        int max_iterations;
+        float tolerance;
+        int n_features_in;
+        std::string init_method = "random";
+        int n_clusters;
+        
+        std::vector<float> minimum(std::vector<std::vector<float>> *data);
+        std::vector<float> maximum(std::vector<std::vector<float>> *data);
+        std::vector<std::vector<float>> initialise_centroids(std::vector<std::vector<float>> *data, int k);
+        float euclidian_distance(std::vector<float> *x, std::vector<float> *y);
+        void update_centroid(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, std::vector<int> *clusters);
+        int classify(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, int item);
+    public:
+        std::vector<std::vector<double>> centroids;
+        std::vector<int> labels;
+        float inertia;
+        k_means(std::vector<std::vector<double>> *data,
+                int n_initialisations = 1, 
+                int n_clusters = 2,
+                int max_iterations = 100, 
+                float tolerance = 0.001); 
+        void fit();
+        std::vector<int> predict(std::vector<std::vector<double>> *data);
+};
+        
+        
 
 std::vector<float> minimum(std::vector<std::vector<float>> *data) {
     std::vector<float> min;
