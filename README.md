@@ -112,13 +112,13 @@
     - [ ] ARIMA Models
     - [ ] Auto-arima model
 - [ ] Machine learning algorithms:
-    - [ ] K-means clustering
-        - [ ] optimise the algorithm
-        - [ ] implement a class. It should be able to:
-            - [ ] Fit the data
-            - [ ] Return the centroids
-            - [ ] Return the cluster assignments
-            - [ ] Show the model inertia.
+    - [x] K-means clustering
+        - [x] optimise the algorithm
+        - [x] implement a class. It should be able to:
+            - [x] Fit the data
+            - [x] Return the centroids
+            - [x] Return the cluster assignments
+            - [x] Show the model inertia.
     - [ ] Evolutionary algorithms
     - [ ] Neural networks
     - [ ] Support vector machines
