@@ -13,7 +13,7 @@
 
 class k_means {
     private:
-        std::vector<std::vector<double>> data;
+        std::vector<std::vector<float>> data;
         int n_initialisations;
         int max_iterations;
         float tolerance;
@@ -27,22 +27,23 @@ class k_means {
         float euclidian_distance(std::vector<float> *x, std::vector<float> *y);
         void update_centroid(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, std::vector<int> *clusters);
         int classify(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, int item);
+        float calculate_inertia(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, std::vector<int> *clusters);
     public:
-        std::vector<std::vector<double>> centroids;
+        std::vector<std::vector<float>> centroids;
         std::vector<int> labels;
         float inertia;
-        k_means(std::vector<std::vector<double>> *data,
+        k_means(std::vector<std::vector<float>> *data,
                 int n_initialisations = 1, 
                 int n_clusters = 2,
                 int max_iterations = 100, 
                 float tolerance = 0.001); 
-        void fit();
-        std::vector<int> predict(std::vector<std::vector<double>> *data);
+        void fit_predict();
+        std::vector<int> predict(std::vector<std::vector<float>> *data);
 };
         
         
 
-std::vector<float> minimum(std::vector<std::vector<float>> *data) {
+std::vector<float> k_means::minimum(std::vector<std::vector<float>> *data) {
     std::vector<float> min;
     for (int i = 0; i < data->at(0).size(); i++) {
         float min_i = data->at(0).at(i);
@@ -56,7 +57,7 @@ std::vector<float> minimum(std::vector<std::vector<float>> *data) {
     return min;
 }
 
-std::vector<float> maximum(std::vector<std::vector<float>> *data) {
+std::vector<float> k_means::maximum(std::vector<std::vector<float>> *data) {
     std::vector<float> max;
     for (int i = 0; i < data->at(0).size(); i++) {
         float max_i = data->at(0).at(i);
@@ -70,7 +71,7 @@ std::vector<float> maximum(std::vector<std::vector<float>> *data) {
     return max;
 }
 
-std::vector<std::vector<float>> initialise_centroids(std::vector<std::vector<float>> *data, int k) {
+std::vector<std::vector<float>> k_means::initialise_centroids(std::vector<std::vector<float>> *data, int k) {
     std::vector<std::vector<float>> centroids;
     std::vector<float> min = minimum(data);
     std::vector<float> max = maximum(data);
@@ -86,7 +87,7 @@ std::vector<std::vector<float>> initialise_centroids(std::vector<std::vector<flo
     return centroids;
 }
 
-float euclidian_distance(std::vector<float> *x, std::vector<float> *y) {
+float k_means::euclidian_distance(std::vector<float> *x, std::vector<float> *y) {
     float distance = 0;
     for (int i = 0; i < x->size(); i++) {
         distance += pow(x->at(i) - y->at(i), 2);
@@ -94,7 +95,7 @@ float euclidian_distance(std::vector<float> *x, std::vector<float> *y) {
     return sqrt(distance);
 }
 
-void update_centroid(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, std::vector<int> *clusters) {
+void k_means::update_centroid(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, std::vector<int> *clusters) {
     for (int i = 0; i < centroids->size(); i++) {
         std::vector<float> centroid;
         for (int j = 0; j < centroids->at(0).size(); j++) {
@@ -116,7 +117,7 @@ void update_centroid(std::vector<std::vector<float>> *data, std::vector<std::vec
     }
 }
 
-int classify(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, int item) {
+int k_means::classify(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, int item) {
     int index = -1;
     float min = 1000000;
     for (int i = 0; i < centroids->size(); i++) {
@@ -129,25 +130,59 @@ int classify(std::vector<std::vector<float>> *data, std::vector<std::vector<floa
     return index;
 }
 
-std::vector<std::vector<float>> k_means(std::vector<std::vector<float>> *data, int k) {
-    std::vector<std::vector<float>> centroids = initialise_centroids(data, k);
-    std::vector<int> clusters(data->size(), 0);
-    bool converged = false;
-    while (!converged) {
-        converged = true;
-        for (int i = 0; i < data->size(); i++) {
-            int index = classify(data, &centroids, i);
-            if (index != clusters.at(i)) {
-                converged = false;
-            }
-            clusters.at(i) = index;
-        }
-        update_centroid(data, &centroids, &clusters);
-
-    }
-    return centroids;
+k_means::k_means(std::vector<std::vector<float>> *data,
+                 int n_initialisations,
+                 int n_clusters,
+                 int max_iterations,
+                 float tolerance) {
+    this->data = *data;
+    this->n_initialisations = n_initialisations;
+    this->n_clusters = n_clusters;
+    this->max_iterations = max_iterations;
+    this->tolerance = tolerance;
+    this->n_features_in = data->at(0).size();
 }
 
+float k_means::calculate_inertia(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, std::vector<int> *clusters) {
+    float inertia = 0;
+    for (int i = 0; i < data->size(); i++) {
+        inertia += pow(euclidian_distance(&data->at(i), &centroids->at(clusters->at(i))), 2);
+    }
+    return inertia;
+}
+
+void k_means::fit_predict() {
+    float best_inertia = 1000000;
+    for (int i = 0; i < n_initialisations; i++) {
+        std::vector<std::vector<float>> centroids = initialise_centroids(&data, n_clusters);
+        std::vector<int> labels;
+        for (int j = 0; j < data.size(); j++) {
+            labels.push_back(0);
+        }
+        int iterations = 0;
+        while (iterations < max_iterations) {
+            std::vector<int> new_labels;
+            for (int j = 0; j < data.size(); j++) {
+                int label = classify(&data, &centroids, j);
+                new_labels.push_back(label);
+            }
+
+            if (new_labels == labels) {
+                break;
+            }
+            labels = new_labels;
+            update_centroid(&data, &centroids, &labels);
+            iterations++;
+        }
+        inertia = calculate_inertia(&data, &centroids, &labels);
+        if (inertia < best_inertia) {
+            best_inertia = inertia;
+            this->inertia = inertia;
+            this->centroids = centroids;
+            this->labels = labels;
+        }
+    }
+}
 
 
 int main() {
@@ -165,15 +200,24 @@ int main() {
     };
 
     // Run the k-means algorithm with k = 2
-    std::vector<std::vector<float>> centroids_2 = k_means(&data, 2);
-    
-    // Print the centroids
+    k_means kmeans(&data, 2, 2, 100, 0.001);
+    kmeans.fit_predict();
+
+    // Print the results
+    std::cout << "Inertia: " << kmeans.inertia << std::endl;
     std::cout << "Centroids: " << std::endl;
-    for (int i = 0; i < centroids_2.size(); i++) {
-        for (int j = 0; j < centroids_2.at(i).size(); j++) {
-            std::cout << centroids_2.at(i).at(j) << " ";
+    for (int i = 0; i < kmeans.centroids.size(); i++) {
+        std::cout << "Cluster " << i << ": ";
+        for (int j = 0; j < kmeans.centroids.at(0).size(); j++) {
+            std::cout << kmeans.centroids.at(i).at(j) << " ";
         }
         std::cout << std::endl;
+    }
+
+    // Print the labels
+    std::cout << "Labels: " << std::endl;
+    for (int i = 0; i < kmeans.labels.size(); i++) {
+        std::cout << kmeans.labels.at(i) << " ";
     }
 
     return 0;
