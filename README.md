@@ -1,6 +1,6 @@
 # C-Practice
 
-- [x] A basic print line function.
+- [x] A basic print line function
 - [x] Data structures:
     - [x] Lists/arrays
     - [x] vectors
@@ -62,7 +62,7 @@
 - [ ] Multiprocessing
     - [ ] Creating threads
     - [ ] Creating processes
-    - [ ] Work out what else I can learn in this domain.
+    - [ ] Work out what else I can learn in this domain
 - [x] Stucts
 - [x] Basic random numbers
 - [x] Roman numeral converter
@@ -78,11 +78,11 @@
 - [x] Sum of two numbers matching a target
 - [x] Three-sum problem
 - [x] Wordle solver
-- [x] Improve the Wordle Solver
+- [x] Improve the Wordle Solver:
     - [x] Function to get the next best guess based on current information.
     - [x] Update the solver so that it can take in new words to guess without reloading the data.
     - [x] Save down a shorter word list for a faster import.
-    - [x] Should tell you if it did not manage to solve within 6 guesses. (says the number of guesses it took)
+    - [x] Should tell you if it did not manage to solve within 6 guesses. (says the number of guesses it took).
     - [x] Tidy the code and comment everything well.
     - [x] Add some error handling for the reading operations.
     - [x] See that there are no further obvious speed optimisations that could be done.
@@ -96,30 +96,33 @@
             - [x] matrix multiplication
             - [x] matrix transposition
     - [ ] Logistic regression using OLS
-    - [x] Linear regression estimated using a minimizing/maximization approach.
+    - [x] Linear regression estimated using a minimizing/maximization approach
     - [x] Multiple Linear Regression
     - [x] Hypothesis testing
     - [ ] AR Model (OLS)
     - [ ] MA Models (Hannan-Rissanen)
-    - [ ] ARMA Models
+    - [ ] ARMA Models:
         - [ ] Checking for stationarity
         - [ ] Check for homoskedasticity
-        - [ ] Estimating the AR parameter using OLS.
+        - [ ] Estimating the AR parameter using OLS
         - [ ] Estimating the MA parameter using Hannan-Rissanen procedure
             - [ ] Fit an AR model to the data
             - [ ] Extract the residuals
-            - [ ] Fit the ARMA model using the above residuals and lagged data using OLS.
+            - [ ] Fit the ARMA model using the above residuals and lagged data using OLS
     - [ ] ARIMA Models
     - [ ] Auto-arima model
+    - [ ] Auto-arima model with seasonal component
+    - [ ] GARCH Model
+    - [ ] ARMA-GARCH model
 - [ ] Machine learning algorithms:
     - [x] K-means clustering:
         - [x] optimise the algorithm
         - [x] implement a class. It should be able to:
-            - [x] Fit the data.
-            - [x] Return the centroids.
-            - [x] Return the cluster assignments.
-            - [x] Show the model inertia.
-        - [x] Implement k-means++.
+            - [x] Fit the data
+            - [x] Return the centroids
+            - [x] Return the cluster assignments
+            - [x] Show the model inerti
+        - [x] Implement k-means++
     - [ ] Evolutionary algorithms
     - [ ] Neural networks
     - [ ] Support vector machines
@@ -127,8 +130,8 @@
     - [ ] Random forests
     - [ ] Naive Bayes
 - [ ] Finance
-    - [ ] Download time series data from Yahoo Finance
-    - [ ] Download time series data from Quandl
+    - [ ] Download time series data from Yahoo Finance.
+    - [ ] Download time series data from Quandl.
     - [ ] Find some tick data and import it.
 
 # Questions
