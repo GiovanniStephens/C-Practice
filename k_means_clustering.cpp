@@ -18,12 +18,14 @@ class k_means {
         int max_iterations;
         float tolerance;
         int n_features_in;
-        std::string init_method = "random";
+        std::string init_method;
         int n_clusters;
         
         std::vector<float> minimum(std::vector<std::vector<float>> *data);
         std::vector<float> maximum(std::vector<std::vector<float>> *data);
         std::vector<std::vector<float>> initialise_centroids(std::vector<std::vector<float>> *data, int k);
+        std::vector<std::vector<float>> initialise_centroids_random(std::vector<std::vector<float>> *data, int k);
+        std::vector<std::vector<float>> initialise_centroids_kmeanspp(std::vector<std::vector<float>> *data, int k);
         float euclidian_distance(std::vector<float> *x, std::vector<float> *y);
         void update_centroid(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, std::vector<int> *clusters);
         int classify(std::vector<std::vector<float>> *data, std::vector<std::vector<float>> *centroids, int item);
@@ -33,6 +35,7 @@ class k_means {
         std::vector<int> labels;
         float inertia;
         k_means(std::vector<std::vector<float>> *data,
+                std::string init_method = "k-means++",
                 int n_initialisations = 1, 
                 int n_clusters = 2,
                 int max_iterations = 100, 
@@ -73,19 +76,79 @@ std::vector<float> k_means::maximum(std::vector<std::vector<float>> *data) {
 
 std::vector<std::vector<float>> k_means::initialise_centroids(std::vector<std::vector<float>> *data, int k) {
     std::vector<std::vector<float>> centroids;
-    std::vector<float> min = minimum(data);
-    std::vector<float> max = maximum(data);
 
-    for (int i = 0; i < k; i++) {
-        std::vector<float> centroid;
-        for (int j = 0; j < data->at(0).size(); j++) {
-            centroid.push_back(min.at(j) + (max.at(j) - min.at(j)) * (float)rand() / (float)RAND_MAX);
+    if (k > data->size()) {
+        std::cout << "Error: k is greater than the number of data points" << std::endl;
+        return centroids;
+    }
+
+    if (k == data->size()) {
+        for (int i = 0; i < data->size(); i++) {
+            centroids.push_back(data->at(i));
         }
-        centroids.push_back(centroid);
+        return centroids;
+    }
+
+    if (init_method == "random") {
+        centroids = initialise_centroids_random(data, k);
+    } else if (init_method == "k-means++") {
+        centroids = initialise_centroids_kmeanspp(data, k);
+    } else {
+        std::cout << "Error: invalid init_method" << std::endl;
     }
 
     return centroids;
 }
+
+std::vector<std::vector<float>> k_means::initialise_centroids_random(std::vector<std::vector<float>> *data, int k) {
+    std::vector<std::vector<float>> centroids;
+    std::vector<int> indices;
+    for (int i = 0; i < data->size(); i++) {
+        indices.push_back(i);
+    }
+    for (int i = 0; i < k; i++) {
+        int index = rand() % indices.size();
+        centroids.push_back(data->at(indices.at(index)));
+        indices.erase(indices.begin() + index);
+    }
+    return centroids;
+}
+
+std::vector<std::vector<float>> k_means::initialise_centroids_kmeanspp(std::vector<std::vector<float>> *data, int k) {
+    std::vector<std::vector<float>> centroids;
+    
+    // Initialise the first centroid randomly
+    std::vector<int> indices;
+    for (int i = 0; i < data->size(); i++) {
+        indices.push_back(i);
+    }
+    int index = rand() % indices.size();
+    centroids.push_back(data->at(indices.at(index)));
+    indices.erase(indices.begin() + index);
+
+    // Initialise the rest of the centroids using k-means++
+    for (int i = 1; i < k; i++) {
+        std::vector<float> distances;
+        float sum = 0;
+        for (int j = 0; j < indices.size(); j++) {
+            float distance = euclidian_distance(&centroids.at(i - 1), &data->at(indices.at(j)));
+            distances.push_back(distance);
+            sum += distance;
+        }
+        float r = (float)rand() / (float)RAND_MAX * sum;
+        float sum_i = 0;
+        for (int j = 0; j < distances.size(); j++) {
+            sum_i += distances.at(j);
+            if (sum_i >= r) {
+                centroids.push_back(data->at(indices.at(j)));
+                indices.erase(indices.begin() + j);
+                break;
+            }
+        }
+    }
+    return centroids;
+}
+
 
 float k_means::euclidian_distance(std::vector<float> *x, std::vector<float> *y) {
     float distance = 0;
@@ -131,11 +194,13 @@ int k_means::classify(std::vector<std::vector<float>> *data, std::vector<std::ve
 }
 
 k_means::k_means(std::vector<std::vector<float>> *data,
+                 std::string init_method,
                  int n_initialisations,
                  int n_clusters,
                  int max_iterations,
                  float tolerance) {
     this->data = *data;
+    this->init_method = init_method;
     this->n_initialisations = n_initialisations;
     this->n_clusters = n_clusters;
     this->max_iterations = max_iterations;
@@ -200,7 +265,7 @@ int main() {
     };
 
     // Run the k-means algorithm with k = 2
-    k_means kmeans(&data, 2, 2, 100, 0.001);
+    k_means kmeans(&data, "random", 2, 2, 100, 0.001);
     kmeans.fit_predict();
 
     // Print the results
