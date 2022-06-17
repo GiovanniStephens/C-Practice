@@ -95,6 +95,9 @@
             - [x] matrix inversion (could this be parallelised?)
             - [x] matrix multiplication
             - [x] matrix transposition
+        - [ ] Multiple linear regression:
+            - [ ] Benchmark the multiple linear regression using OLS with various matrix inversion and mutiplication functions. (I need to work out where I can speed up my OLS implementation).
+            - [ ] Compare the multiple linear regression using OLS as opposed to using gradient descent.
     - [ ] Logistic regression using OLS
     - [x] Linear regression estimated using a minimizing/maximization approach
     - [x] Multiple Linear Regression
