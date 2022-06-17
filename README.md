@@ -87,7 +87,6 @@
     - [x] Add some error handling for the reading operations.
     - [x] See that there are no further obvious speed optimisations that could be done.
 (Won't do)
-- [x] Timing functions
 - [x] Division in C++
 - [ ] Statistical models
     - [x] Linear regression using OLS:
@@ -136,6 +135,10 @@
     - [ ] Download time series data from Yahoo Finance.
     - [ ] Download time series data from Quandl.
     - [ ] Find some tick data and import it.
+- [ ] Performance testing:
+    - [x] Timing functions
+    - [ ] Benchmarking
+    
 
 # Questions
 1. What happens when you instantiate a class instance with a parameter that is greater than the MAX_SIZE defined in the class?
