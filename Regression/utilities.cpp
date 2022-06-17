@@ -60,15 +60,20 @@ std::vector<float> pacf(std::vector<float> x, int nlags) {
     if (nlags == -1) {
         nlags = (int) std::min(10 * std::log10(x.size()), (double) x.size()/2 - 1);
     }
-    
-    // TODO: Implement pacf
-    // For the ith lag, calculate the partial autocorrelation of the ith lag.
-        // you'd fit the regression model y_t with all the lags up to the ith lag.
-        
-        // I need to work out whether I need to work out the autocorrrelation of the
-        // residuals or the original data... I do not know. 
 
-        // Add the partial autocorrelation to the vector.
+    for (int i = 1; i < nlags; i++) {
+        std::vector<std::vector<float>> x_vec;
+        for (int j = 0; j < x.size() - i; j++) {
+            std::vector<float> temp;
+            for (int k = i; k >= 0; k--) {
+                temp.push_back(x[j+k]);
+            }
+            x_vec.push_back(temp);
+        }
+        LinearRegressor lr(x_vec, x);
+        lr.fit();
+        pacf.push_back(lr.coefficients[i]);
+    }
     return pacf;
 }
 
