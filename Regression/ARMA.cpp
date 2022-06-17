@@ -99,6 +99,9 @@ int main() {
 
     // Print number of lags
     std::cout << "Number of lags: " << acf_values.size() << std::endl;
+
+    // Calculate the pacf values
+    std::vector<float> pacf_values = pacf(returns, 5);
     
     return 0;
 }
