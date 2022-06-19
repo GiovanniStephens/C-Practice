@@ -25,8 +25,8 @@ std::vector<std::vector<float>> generate_data(int n,
             x.push_back(x_bounds[j][0] + (x_bounds[j][1] - x_bounds[j][0]) * rand() / (float) RAND_MAX);
         }
         float y = 0;
-        for (int j = 0; j < coeffients.size(); j++) {
-            y += coeffients[j] * x[j];
+        for (int j = 1; j < coeffients.size(); j++) {
+            y += coeffients[j] * x[j-1];
         }
         y += coeffients[0];
         y += random_normal(0, noise_std);
@@ -40,23 +40,16 @@ int main() {
     std::vector<std::vector<float>> x_bounds;
     std::vector<float> coeffients;
     float noise_std = 0.1;
-    int n = 10;
+    int n = 10000;
     x_bounds.push_back({0, 10});
     x_bounds.push_back({0, 10});
     // x_bounds.push_back({0, 10});
     coeffients.push_back(1);
-    coeffients.push_back(1);
+    coeffients.push_back(1.5);
     coeffients.push_back(1);
     // coeffients.push_back(1);
     std::vector<std::vector<float>> data = generate_data(n, x_bounds, coeffients, noise_std);
 
-    //print data
-    for (int i = 0; i < data.size(); i++) {
-        for (int j = 0; j < data[i].size(); j++) {
-            std::cout << data[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
     // first columns are x, last is y
     std::vector<std::vector<float>> x;
     std::vector<float> y;
@@ -68,20 +61,6 @@ int main() {
         x.push_back(row);
         y.push_back(data[i].back());
     }
-    
-    // Print the first few rows of x
-    std::cout << "x: " << std::endl;
-    for (int i = 0; i < x.size(); i++) {
-        for (int j = 0; j < x[i].size(); j++) {
-            std::cout << x[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-
-    //print the length of x and y
-    std::cout << "x length: " << x.size() << std::endl;
-    std::cout << "y length: " << y.size() << std::endl;
-    
 
     Timer timer;
 
