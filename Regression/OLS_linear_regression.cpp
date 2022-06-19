@@ -18,7 +18,8 @@ Matrix::Matrix() {
 }
 
 Matrix::Matrix(int rows, int cols) {
-    n = rows;
+    n_rows = rows;
+    n_cols = cols;
     matrix.resize(rows);
     for (int i = 0; i < rows; i++) {
         matrix[i].resize(cols);
@@ -34,15 +35,15 @@ float& Matrix::operator()(int i,int j) {
 }
 
 Matrix Matrix::cofactor(unsigned int p, unsigned int q) {
-    Matrix cofactor(n-1, n-1);
+    Matrix cofactor(n_rows-1, n_cols-1);
     unsigned int i = 0;
     unsigned int j = 0;
-    for (unsigned int row = 0; row < n; row++) {
-        for (unsigned int col = 0; col < n; col++) {
+    for (unsigned int row = 0; row < n_rows; row++) {
+        for (unsigned int col = 0; col < n_cols; col++) {
             if (row != p && col != q) {
                 cofactor.matrix[i][j] = matrix[row][col];
                 j++;
-                if (j == n-1) {
+                if (j == n_rows-1) {
                     j = 0;
                     i++;
                 }
@@ -54,15 +55,15 @@ Matrix Matrix::cofactor(unsigned int p, unsigned int q) {
 
 float Matrix::determinant() {
     // calculate determinant recursively by computing the determinant of the cofactors.
-    if(n == 1){
+    if(n_rows == 1){
         return matrix[0][0];
     }
 
     float Det = 0;
     float s;
-    Matrix Cof(n-1, n-1);
+    Matrix Cof(n_rows-1, n_cols-1);
 
-    for(unsigned int i = 0; i < n; i++){
+    for(unsigned int i = 0; i < n_rows; i++){
         Cof = cofactor(0, i);
         s = pow(-1, i)*matrix[0][i]*Cof.determinant();
         Det += s;
@@ -74,13 +75,13 @@ Matrix Matrix::inverse(){
     // get determinant of the matrix
     float Det = this->determinant();
 
-    Matrix Cof(n-1, n-1);
-    Matrix Inv(n, n);
+    Matrix Cof(n_rows-1, n_cols-1);
+    Matrix Inv(n_rows, n_cols);
     float s;
 
     // calculate inverse as the transpose of the adjugate matrix.
-    for(size_t i = 0; i < n; i++){
-        for(size_t j = 0; j < n; j++){
+    for(size_t i = 0; i < n_rows; i++){
+        for(size_t j = 0; j < n_cols; j++){
 
             Cof = cofactor(i,j);
             s = pow(-1, i + j);
@@ -91,10 +92,58 @@ Matrix Matrix::inverse(){
     return Inv;
 }
 
+Matrix Matrix::inverse_2() {
+    Matrix temp(n_rows, n_cols * 2);
+
+    for (int i = 0; i < n_rows; ++i) {
+        for (int j = 0; j < n_cols; ++j) {
+            temp(i, j) = matrix[i][j];
+        }
+    }
+
+    for (int i = 0; i < n_rows; ++i) {
+        for (int j = n_rows; j < 2 * n_rows; ++j) {
+            if (i == (j - n_rows)) {
+                temp(i, j) = 1.0;
+            } else {
+                temp(i, j) = 0.0;
+            }
+        }
+    }
+
+    for (int i = 0; i < n_rows; ++i){
+        for (int j = 0; j < n_cols; ++j){
+            if (i != j ){
+                double ratio = temp(j, i) / temp(i, i);
+                for (int k = 0; k < 2 * n_rows; ++k){
+                    temp(j, k) -= ratio * temp(i, k);
+                }
+            }
+        }
+    }
+
+    for (int i = 0; i < n_rows; ++i){
+        double a = temp(i, i);
+        for (int j = 0; j < 2 * n_rows; ++j){
+            temp(i, j) /= a;
+        }
+    }
+
+    Matrix ret(n_rows, n_cols);
+
+    for (int i = 0; i < n_rows; ++i) {
+        for (int j = 0; j < n_cols; ++j) {
+            ret(i, j) = temp(i, j + n_cols);
+        }
+    }
+
+    return ret;
+}
+
 Matrix Matrix::transpose() {
-    Matrix transpose(n, n);
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
+    Matrix transpose(n_cols, n_rows);
+    for (int i = 0; i < n_rows; i++) {
+        for (int j = 0; j < n_cols; j++) {
             transpose(j, i) = matrix[i][j];
         }
     }
@@ -102,10 +151,10 @@ Matrix Matrix::transpose() {
 }
 
 Matrix Matrix::multiply(Matrix m) {
-    Matrix product(n, m.n);
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m.n; j++) {
-            for (int k = 0; k < n; k++) {
+    Matrix product(n_rows, m.n_cols);
+    for (int i = 0; i < n_rows; i++) {
+        for (int j = 0; j < m.n_cols; j++) {
+            for (int k = 0; k < n_rows; k++) {
                 product(i, j) += matrix[i][k] * m(k, j);
             }
         }
@@ -114,8 +163,8 @@ Matrix Matrix::multiply(Matrix m) {
 }
 
 void Matrix::print() {
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
+    for (int i = 0; i < n_rows; i++) {
+        for (int j = 0; j < n_cols; j++) {
             std::cout << matrix[i][j] << " ";
         }
         std::cout << std::endl;
@@ -140,11 +189,6 @@ LinearRegressor::LinearRegressor(std::vector<std::vector<float>> x, std::vector<
     }
 }
 
-LinearRegressor::~LinearRegressor() {
-    coefficients.clear();
-    X.~Matrix();
-    Y.~Matrix();
-}
 
 void LinearRegressor::fit() {
     // create matrix of x values
@@ -157,15 +201,15 @@ void LinearRegressor::fit() {
     Matrix X_transpose_Y = X_transpose.multiply(Y);
 
     // (X^T * X)^-1
-    Matrix X_transpose_X_inverse = X_transpose_X.inverse();
+    Matrix X_transpose_X_inverse = X_transpose_X.inverse_2();
 
     // (X^T * X)^-1 * X^T * Y
-    Matrix X_transpose_X_inverse_X_transpose_Y = X_transpose_X_inverse.multiply(X_transpose_Y);
+    Matrix X_transpose_X_inverse_transpose_X_Y = X_transpose_X_inverse.multiply(X_transpose_Y);
 
     // Update the coefficients, but first clear the coefficients vector
     coefficients.clear();
-    for (int i = 0; i < X_transpose_X_inverse_X_transpose_Y.n; i++) {
-        coefficients.push_back(X_transpose_X_inverse_X_transpose_Y(i, 0));
+    for (int i = 0; i < X_transpose_X_inverse_transpose_X_Y.n_rows; i++) {
+        coefficients.push_back(X_transpose_X_inverse_transpose_X_Y(i, 0));
     }
 }
 
@@ -185,21 +229,35 @@ int main() {
         {1, 2, 3},
         {3, 2, 2},
         {3.5, 2.5, 1},
-        {5, 2, 0}
+        {5, 2, 0},
+        {7, 2, 1}
     };
+
+    // std::vector<std::vector<float>> x = {
+    //     {3,2},
+    //     {2,2}
+    // };
 
     std::vector<float> y = {
         1,
         2,
         3,
-        4
+        4,
+        3
     };
+    Matrix m = Matrix(x.size(), x[0].size());
+
+    for (int i = 0; i < x.size(); i++) {
+        for (int j = 0; j < x[0].size(); j++) {
+            m(i, j) = x[i][j];
+        }
+    }
 
     LinearRegressor lr(x, y);
     // Timer to see how long it takes to fit the model
-    Timer timer;
+    // Timer timer;
     lr.fit();
-    std::cout << "Time to fit: " << timer.elapsed_time() << std::endl;
+    // std::cout << "Time to fit: " << timer.elapsed_time() << std::endl;
     std::cout << "Coefficients: ";
     for (int i = 0; i < lr.coefficients.size(); i++) {
         std::cout << lr.coefficients[i] << " ";
