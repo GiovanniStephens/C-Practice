@@ -14,7 +14,7 @@ public:
     Matrix transpose();
     Matrix multiply(Matrix m);
     void print();
-    unsigned int n;
+    unsigned int n_rows;
     unsigned int n_cols;
 private:
     std::vector<std::vector<float>> matrix;
