@@ -83,11 +83,13 @@ int main() {
     // calculate returns
     std::vector<float> returns = calculate_returns(prices.adj_close);
 
+    int pacf_order = 5;
+
     // Calculate the pacf values
-    std::vector<float> pacf_values = pacf(returns, 2);
+    std::vector<float> pacf_values = pacf(returns, pacf_order);
 
     // Print first 5 rows of PACF values
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < pacf_order; i++) {
         std::cout << pacf_values[i] << std::endl;
     }
     
