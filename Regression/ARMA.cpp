@@ -79,29 +79,17 @@ class Data {
 int main() {
     Data prices = Data();
     prices.read_csv("BTC-USD.csv");
-    
-    // print first 5 rows of prices
-    for (int i = 0; i < 5; i++) {
-        std::cout << prices.dates[i] << " " << prices.open[i] << " " << prices.high[i] << " " << prices.low[i] << " " << prices.close[i] << " " << prices.adj_close[i] << " " << prices.volume[i] << std::endl;
-    }
 
     // calculate returns
     std::vector<float> returns = calculate_returns(prices.adj_close);
 
-    // calculate autocorrelation
-    std::vector<float> acf_values = acf(returns);
-
-
-    // print first 5 rows of ACF values
-    for (int i = 0; i < 5; i++) {
-        std::cout << acf_values[i] << std::endl;
-    }
-
-    // Print number of lags
-    std::cout << "Number of lags: " << acf_values.size() << std::endl;
-
     // Calculate the pacf values
-    std::vector<float> pacf_values = pacf(returns, 5);
+    std::vector<float> pacf_values = pacf(returns, 2);
+
+    // Print first 5 rows of PACF values
+    for (int i = 0; i < 5; i++) {
+        std::cout << pacf_values[i] << std::endl;
+    }
     
     return 0;
 }
