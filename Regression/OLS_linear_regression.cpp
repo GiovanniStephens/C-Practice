@@ -6,6 +6,7 @@
  * Date:    29/04/2022
  */
 
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -154,7 +155,7 @@ Matrix Matrix::multiply(Matrix m) {
     Matrix product(n_rows, m.n_cols);
     for (int i = 0; i < n_rows; i++) {
         for (int j = 0; j < m.n_cols; j++) {
-            for (int k = 0; k < n_rows; k++) {
+            for (int k = 0; k < n_cols; k++) {
                 product(i, j) += matrix[i][k] * m(k, j);
             }
         }
@@ -197,14 +198,14 @@ void LinearRegressor::fit() {
     // X^T * X
     Matrix X_transpose_X = X_transpose.multiply(X);
 
-    // X^T * Y
-    Matrix X_transpose_Y = X_transpose.multiply(Y);
-
     // (X^T * X)^-1
     Matrix X_transpose_X_inverse = X_transpose_X.inverse_2();
 
+    // (X^T * X)^-1 * X^T
+    Matrix X_transpose_X_inverse_X_transpose = X_transpose_X_inverse.multiply(X_transpose);
+
     // (X^T * X)^-1 * X^T * Y
-    Matrix X_transpose_X_inverse_transpose_X_Y = X_transpose_X_inverse.multiply(X_transpose_Y);
+    Matrix X_transpose_X_inverse_transpose_X_Y = X_transpose_X_inverse_X_transpose.multiply(Y);
 
     // Update the coefficients, but first clear the coefficients vector
     coefficients.clear();
@@ -222,7 +223,6 @@ float LinearRegressor::predict(std::vector<float> x) {
     return y_prediction;
 }
 
-
 /*
 int main() {
     std::vector<std::vector<float>> x = {
@@ -233,11 +233,6 @@ int main() {
         {7, 2, 1}
     };
 
-    // std::vector<std::vector<float>> x = {
-    //     {3,2},
-    //     {2,2}
-    // };
-
     std::vector<float> y = {
         1,
         2,
@@ -245,13 +240,6 @@ int main() {
         4,
         3
     };
-    Matrix m = Matrix(x.size(), x[0].size());
-
-    for (int i = 0; i < x.size(); i++) {
-        for (int j = 0; j < x[0].size(); j++) {
-            m(i, j) = x[i][j];
-        }
-    }
 
     LinearRegressor lr(x, y);
     // Timer to see how long it takes to fit the model
