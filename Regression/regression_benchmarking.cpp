@@ -36,6 +36,7 @@ std::vector<std::vector<float>> generate_data(int n,
     return data;
 }
 
+/*
 int main() { 
     std::vector<std::vector<float>> x_bounds;
     std::vector<float> coeffients;
@@ -75,3 +76,4 @@ int main() {
     }
     return 0; 
 }
+*/
