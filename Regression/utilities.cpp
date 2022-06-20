@@ -61,19 +61,33 @@ std::vector<float> pacf(std::vector<float> x, int nlags) {
         nlags = (int) std::min(10 * std::log10(x.size()), (double) x.size()/2 - 1);
     }
 
-    for (int i = 1; i < nlags; i++) {
+    for (int i = 1; i <= nlags; i++) {
+        std::vector<float> y_vec;
+        for (int j = i; j < x.size(); j++) {
+            y_vec.push_back(x[j]);
+        }
         std::vector<std::vector<float>> x_vec;
-        for (int j = 0; j < x.size() - i; j++) {
+        for (int j = i; j < x.size(); j++) {
             std::vector<float> temp;
-            for (int k = i; k >= 0; k--) {
-                temp.push_back(x[j+k]);
+            for (int k = 1; k <= i; k++) {
+                temp.push_back({x[j-k]});
             }
             x_vec.push_back(temp);
         }
-        LinearRegressor lr(x_vec, x);
+        LinearRegressor lr(x_vec, y_vec);
         lr.fit();
-        pacf.push_back(lr.coefficients[i]);
+
+        // print the coefficients
+        std::cout << "Coefficients: ";
+        for (int j = 0; j < lr.coefficients.size(); j++) {
+            std::cout << lr.coefficients[j] << " ";
+        }
+        std::cout << std::endl;
+
+        // push back last coefficient
+        pacf.push_back(lr.coefficients[lr.coefficients.size()-1]);
     }
+    
     return pacf;
 }
 
