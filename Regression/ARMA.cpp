@@ -75,6 +75,12 @@ class Data {
         }
 };
 
+ARMA::ARMA(std::vector<std::vector<float>> x, int p, int q) {
+    this->data = x;
+    this->p = p;
+    this->q = q;
+}
+
 
 int main() {
     Data prices = Data();
