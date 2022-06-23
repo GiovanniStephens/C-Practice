@@ -190,6 +190,11 @@ LinearRegressor::LinearRegressor(std::vector<std::vector<float>> x, std::vector<
     }
 }
 
+void LinearRegressor::calculate_residuals() {
+    for (int i = 0; i < this->X.n_rows; i++) {
+        this->residuals.push_back(this->predict(X.matrix[i]) - this->Y(i, 0));
+    }
+}
 
 void LinearRegressor::fit() {
     // create matrix of x values
@@ -212,6 +217,7 @@ void LinearRegressor::fit() {
     for (int i = 0; i < X_transpose_X_inverse_transpose_X_Y.n_rows; i++) {
         coefficients.push_back(X_transpose_X_inverse_transpose_X_Y(i, 0));
     }
+    calculate_residuals();
 }
 
 float LinearRegressor::predict(std::vector<float> x) {
