@@ -77,14 +77,6 @@ std::vector<float> pacf(std::vector<float> x, int nlags) {
         LinearRegressor lr(x_vec, y_vec);
         lr.fit();
 
-        // print the coefficients
-        std::cout << "Coefficients: ";
-        for (int j = 0; j < lr.coefficients.size(); j++) {
-            std::cout << lr.coefficients[j] << " ";
-        }
-        std::cout << std::endl;
-
-        // push back last coefficient
         pacf.push_back(lr.coefficients[lr.coefficients.size()-1]);
     }
     
