@@ -9,14 +9,14 @@ class ARMA {
         int p;
         int q;
         std::vector<float> data;
-
-        LinearRegressor AR(int nlags);
     public:    
         std::vector<float> residuals;
         std::vector<float> coeffients;
 
         ARMA(std::vector<float> data, int p, int q);
+        LinearRegressor AR(int nlags);
         ~ARMA();
+        
         void fit();
         void predict(int n);
 };
