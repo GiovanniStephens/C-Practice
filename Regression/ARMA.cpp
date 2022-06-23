@@ -16,6 +16,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <cmath>
 #include "ARMA.h"
 
 class Data {
@@ -75,10 +76,44 @@ class Data {
         }
 };
 
-ARMA::ARMA(std::vector<std::vector<float>> x, int p, int q) {
+ARMA::ARMA(std::vector<float> x, int p, int q) {
     this->data = x;
     this->p = p;
     this->q = q;
+}
+
+LinearRegressor ARMA::AR(int nlags) {
+    std::vector<float> y_vec;
+    std::vector<std::vector<float>> x_vec;
+    for (int i = nlags; i < this->data.size(); i++) {
+        y_vec.push_back(this->data[i]);
+        std::vector<float> temp;
+        for (int j = 1; j <= nlags; j++) {
+            temp.push_back({this->data[j-i]});
+        }
+        x_vec.push_back(temp);
+    }
+    LinearRegressor lr(x_vec, y_vec);
+    lr.fit();
+    return lr;
+}
+
+void ARMA::fit() {
+    // fit the AR model
+
+    // Initial lags.
+    int nlags = (int) std::min(10 * std::log10(this->data.size()), (double) this->data.size()/2 - 1);
+
+    // Get initial AR model.
+    LinearRegressor ar = AR(nlags);
+
+    // Get residuals.
+    std::vector<float> residuals = ar.residuals;
+
+    // Fit the ARMA model.
+    
+
+    // Gone to create a functiion that returns residuals in the OLS class.
 }
 
 
