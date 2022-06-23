@@ -13,10 +13,10 @@ def main():
 
     # Make df with returns and 5 lagged return series
     df['Returns_lag1'] = df['Returns'].shift(1)
-    df['Returns_lag2'] = df['Returns'].shift(2)
-    df['Returns_lag3'] = df['Returns'].shift(3)
-    df['Returns_lag4'] = df['Returns'].shift(4)
-    df['Returns_lag5'] = df['Returns'].shift(5)
+    # df['Returns_lag2'] = df['Returns'].shift(2)
+    # df['Returns_lag3'] = df['Returns'].shift(3)
+    # df['Returns_lag4'] = df['Returns'].shift(4)
+    # df['Returns_lag5'] = df['Returns'].shift(5)
 
     # Drop nans
     df = df.dropna()
@@ -27,7 +27,8 @@ def main():
     reg = LinearRegression()
     
     # regress lags vs returns
-    reg.fit(df[['Returns_lag1', 'Returns_lag2', 'Returns_lag3', 'Returns_lag4', 'Returns_lag5']], df['Returns'])
+    # reg.fit(df[['Returns_lag1', 'Returns_lag2', 'Returns_lag3', 'Returns_lag4', 'Returns_lag5']], df['Returns'])
+    reg.fit(df[['Returns_lag1']], df['Returns'])
     
     print('Time: \n', time.time() - start)
     
