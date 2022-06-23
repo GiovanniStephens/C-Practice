@@ -111,9 +111,15 @@ void ARMA::fit() {
     std::vector<float> residuals = ar.residuals;
 
     // Fit the ARMA model.
-    
+
 
     // Gone to create a functiion that returns residuals in the OLS class.
+}
+
+ARMA::~ARMA() {
+    this->data.clear();
+    this->residuals.clear();
+    this->coeffients.clear();
 }
 
 
@@ -125,6 +131,7 @@ int main() {
     std::vector<float> returns = calculate_returns(prices.adj_close);
 
     int pacf_order = 5;
+    int acf_order = 1;
 
     // Calculate the pacf values
     std::vector<float> pacf_values = pacf(returns, pacf_order);
@@ -133,6 +140,17 @@ int main() {
     for (int i = 0; i < pacf_order; i++) {
         std::cout << pacf_values[i] << std::endl;
     }
+
+    // Calculate the ARMA model
+    ARMA arma(returns, 1, 1);
+
+    // fit an AR model
+    LinearRegressor ar = arma.AR(1);
     
+    // print the AR model's residuals
+    std::cout << "AR model residuals:" << std::endl;
+    for (int i = 0; i < ar.residuals.size(); i++) {
+        std::cout << ar.residuals[i] << std::endl;
+    }
     return 0;
 }
