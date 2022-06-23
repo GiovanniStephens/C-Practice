@@ -16,16 +16,17 @@ public:
     void print();
     unsigned int n_rows;
     unsigned int n_cols;
-private:
     std::vector<std::vector<float>> matrix;
 };
 
 class LinearRegressor {
     private:
+        void calculate_residuals();
+    public:
         Matrix X;
         Matrix Y;
-    public:
         std::vector<float> coefficients;
+        std::vector<float> residuals;
         LinearRegressor(std::vector<std::vector<float>> x, std::vector<float> y);
         void fit();
         float predict(std::vector<float> x);
