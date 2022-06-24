@@ -9,9 +9,11 @@ class ARMA {
         int p;
         int q;
         std::vector<float> data;
-    public:    
+
+        std::vector<std::vector<float>> lag_series(std::vector<float> series, int nlags);
+    public:
         std::vector<float> residuals;
-        std::vector<float> coeffients;
+        std::vector<float> coefficients;
 
         ARMA(std::vector<float> data, int p, int q);
         LinearRegressor AR(int nlags);
