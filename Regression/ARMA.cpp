@@ -111,21 +111,35 @@ void ARMA::fit() {
     // Initial lags.
     int nlags = (int) std::min(10 * std::log10(this->data.size()), (double) this->data.size()/2 - 1);
     std::cout << "Initial lags: " << nlags << std::endl;
-    nlags = 5;
+
     // Get initial AR model.
     LinearRegressor ar = AR(nlags);
 
-    // Print ar coefficients.
-    std::cout << "AR coefficients: " << std::endl;
-    for (int i = 0; i < ar.coefficients.size(); i++) {
-        std::cout << ar.coefficients[i] << " ";
+    // Get residuals.
+    // y_vec
+    std::vector<float> y_vec;
+    for (int i = this->p + this->q; i < this->data.size(); i++) {
+        y_vec.push_back(this->data[i]);
+    }
+    std::cout << "Length of y_vec: " << y_vec.size() << std::endl;
+    std::vector<std::vector<float>> x_vec = this->lag_series(this->data, this->p);
+    std::vector<float> residuals;
+    
+    // Print the first row of the x_vec matrix.
+    std::cout << "First row of x_vec matrix:" << std::endl;
+    for (int i = 0; i < x_vec[0].size(); i++) {
+        std::cout << x_vec[0][i] << " ";
+    }
+    std::cout << std::endl;
+
+    // Print data[this->p]
+    std::cout << "data[this->p]: " << this->data[this->p] << std::endl;
+
+    for (int i = 0; i < x_vec.size(); i++) {
+        residuals.push_back(this->data[this->p+i] - ar.predict(x_vec[i]));
     }
 
-    // Get residuals.
-    std::vector<float> residuals = ar.residuals;
-
     // Fit the ARMA model.
-    std::vector<std::vector<float>> x_vec = this->lag_series(this->data, this->p);
     std::vector<std::vector<float>> resid_vec = this->lag_series(residuals, this->q);
     
     // Join the vectors.
@@ -146,13 +160,15 @@ void ARMA::fit() {
     std::cout << "Length of x_vec: " << x_vec.size() << std::endl;
     std::cout << "Length of resid_vec: " << resid_vec.size() << std::endl;
     std::cout << "Length of x_resid_vec: " << x_resid_vec.size() << std::endl;
-    
-    // y_vec
-    std::vector<float> y_vec;
-    for (int i = nlags + this->q; i < this->data.size(); i++) {
-        y_vec.push_back(this->data[i]);
-    }
-    std::cout << "Length of y_vec: " << y_vec.size() << std::endl;
+
+    // // print the first 10 x_resid_vec elements.
+    // for (int i = 0; i < 10; i++) {
+    //     std::cout << "x_resid_vec[" << i << "]: ";
+    //     for (int j = 0; j < x_resid_vec[i].size(); j++) {
+    //         std::cout << x_resid_vec[i][j] << " ";
+    //     }
+    //     std::cout << std::endl;
+    // }
 
     // Fit the ARMA model.
     LinearRegressor arma(x_resid_vec, y_vec);
@@ -181,7 +197,7 @@ int main() {
     std::cout << "Length of returns: " << returns.size() << std::endl;
 
     // Calculate the ARMA model
-    ARMA arma(returns, 1, 0);
+    ARMA arma(returns, 2, 2);
 
     arma.fit();
 
