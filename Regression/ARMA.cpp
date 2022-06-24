@@ -82,17 +82,24 @@ ARMA::ARMA(std::vector<float> x, int p, int q) {
     this->q = q;
 }
 
-LinearRegressor ARMA::AR(int nlags) {
-    std::vector<float> y_vec;
+std::vector<std::vector<float>> ARMA::lag_series(std::vector<float> series, int nlags) {
     std::vector<std::vector<float>> x_vec;
-    for (int i = nlags; i < this->data.size(); i++) {
-        y_vec.push_back(this->data[i]);
+    for (int i = nlags; i < series.size(); i++) {
         std::vector<float> temp;
         for (int j = 1; j <= nlags; j++) {
-            temp.push_back({this->data[j-i]});
+            temp.push_back({series[i-j]});
         }
         x_vec.push_back(temp);
     }
+    return x_vec;
+}
+
+LinearRegressor ARMA::AR(int nlags) {
+    std::vector<float> y_vec;
+    for (int i = nlags; i < this->data.size(); i++) {
+        y_vec.push_back(this->data[i]);
+    }
+    std::vector<std::vector<float>> x_vec = this->lag_series(this->data, nlags);
     LinearRegressor lr(x_vec, y_vec);
     lr.fit();
     return lr;
@@ -103,23 +110,63 @@ void ARMA::fit() {
 
     // Initial lags.
     int nlags = (int) std::min(10 * std::log10(this->data.size()), (double) this->data.size()/2 - 1);
-
+    std::cout << "Initial lags: " << nlags << std::endl;
+    nlags = 5;
     // Get initial AR model.
     LinearRegressor ar = AR(nlags);
+
+    // Print ar coefficients.
+    std::cout << "AR coefficients: " << std::endl;
+    for (int i = 0; i < ar.coefficients.size(); i++) {
+        std::cout << ar.coefficients[i] << " ";
+    }
 
     // Get residuals.
     std::vector<float> residuals = ar.residuals;
 
     // Fit the ARMA model.
+    std::vector<std::vector<float>> x_vec = this->lag_series(this->data, this->p);
+    std::vector<std::vector<float>> resid_vec = this->lag_series(residuals, this->q);
+    
+    // Join the vectors.
+    std::vector<std::vector<float>> x_resid_vec;
+    // Get max of p and q.
+    int data_length = std::min(x_vec.size(), resid_vec.size());
+    for (int i = 0; i < data_length; i++) {
+        std::vector<float> temp;
+        for (int j = 0; j < this->p; j++) {
+            temp.push_back(x_vec[i][j]);
+        }
+        for (int j = 0; j < this->q; j++) {
+            temp.push_back(resid_vec[i][j]);
+        }
+        x_resid_vec.push_back(temp);
+    }
+    std::cout << "Length of this->data: " << this->data.size() << std::endl;
+    std::cout << "Length of x_vec: " << x_vec.size() << std::endl;
+    std::cout << "Length of resid_vec: " << resid_vec.size() << std::endl;
+    std::cout << "Length of x_resid_vec: " << x_resid_vec.size() << std::endl;
+    
+    // y_vec
+    std::vector<float> y_vec;
+    for (int i = nlags + this->q; i < this->data.size(); i++) {
+        y_vec.push_back(this->data[i]);
+    }
+    std::cout << "Length of y_vec: " << y_vec.size() << std::endl;
 
+    // Fit the ARMA model.
+    LinearRegressor arma(x_resid_vec, y_vec);
+    arma.fit();
 
-    // Gone to create a functiion that returns residuals in the OLS class.
+    // Get the coefficients.
+    this->coefficients = arma.coefficients;
+    this->residuals = arma.residuals;
 }
 
 ARMA::~ARMA() {
     this->data.clear();
     this->residuals.clear();
-    this->coeffients.clear();
+    this->coefficients.clear();
 }
 
 
@@ -130,27 +177,19 @@ int main() {
     // calculate returns
     std::vector<float> returns = calculate_returns(prices.adj_close);
 
-    int pacf_order = 5;
-    int acf_order = 1;
-
-    // Calculate the pacf values
-    std::vector<float> pacf_values = pacf(returns, pacf_order);
-
-    // Print first 5 rows of PACF values
-    for (int i = 0; i < pacf_order; i++) {
-        std::cout << pacf_values[i] << std::endl;
-    }
+    // print length of returns
+    std::cout << "Length of returns: " << returns.size() << std::endl;
 
     // Calculate the ARMA model
-    ARMA arma(returns, 1, 1);
+    ARMA arma(returns, 1, 0);
 
-    // fit an AR model
-    LinearRegressor ar = arma.AR(1);
-    
-    // print the AR model's residuals
-    std::cout << "AR model residuals:" << std::endl;
-    for (int i = 0; i < ar.residuals.size(); i++) {
-        std::cout << ar.residuals[i] << std::endl;
+    arma.fit();
+
+    // print the coefficients
+    std::cout << "ARMA model coefficients:" << std::endl;
+    for (int i = 0; i < arma.coefficients.size(); i++) {
+        std::cout << arma.coefficients[i] << std::endl;
     }
+
     return 0;
 }
