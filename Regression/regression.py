@@ -37,6 +37,12 @@ def main():
     # print the intercept
     print('Intercept: \n', reg.intercept_)
 
+    # Fit ARMA model to data
+    from statsmodels.tsa.arima.model import ARIMA
+    model = ARIMA(df['Returns'], order=(2,0,2))
+    model_fit = model.fit()
+    print('ARIMA model: \n', model_fit.summary())
+
 
 if __name__ == '__main__':
     main()
