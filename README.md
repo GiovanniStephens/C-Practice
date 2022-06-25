@@ -10,7 +10,7 @@
     - [x] Stacks
     - [x] Single linked lists
     - [x] Double linked lists
-    - [ ] Trees (Binary search tree BST)
+    - [x] Trees (Binary search tree BST)
     - [x] Graphs
         - [x] Fully connected graphs
         - [x] Directed graphs
