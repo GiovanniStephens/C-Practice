@@ -101,14 +101,14 @@
     - [x] Linear regression estimated using a minimizing/maximization approach
     - [x] Multiple Linear Regression
     - [x] Hypothesis testing
-    - [ ] AR Model (OLS)
+    - [x] AR Model (OLS)
     - [ ] MA Models (Hannan-Rissanen)
     - [ ] ARMA Models:
         - [ ] Checking for stationarity
         - [ ] Check for homoskedasticity
-        - [ ] Estimating the AR parameter using OLS
+        - [x] Estimating the AR parameter using OLS
         - [ ] Estimating the MA parameter using Hannan-Rissanen procedure
-            - [ ] Fit an AR model to the data
+            - [x] Fit an AR model to the data
             - [ ] Extract the residuals
             - [ ] Fit the ARMA model using the above residuals and lagged data using OLS
     - [ ] ARIMA Models
