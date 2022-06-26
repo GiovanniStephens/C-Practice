@@ -15,7 +15,7 @@
         - [x] Fully connected graphs
         - [x] Directed graphs
         - [x] Undirected graphs 
-    - [ ] Heaps
+    - [ ] Heaps (created in the heap sort, but I might re-implement it to remember.)
     - [ ] Hash tables
 - [ ] Algorithms:
     - [ ] Sorting
