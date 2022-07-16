@@ -28,11 +28,11 @@
         - [x] Bucket sort
         - [x] Count sort
         - [ ] Radix sort
-    - [ ] Searching
+    - [x] Searching
         - [x] Linear search
         - [x] Binary search
         - [x] Jump search
-        - [ ] Interpolation search
+        - [x] Interpolation search
     - [ ] Greedy
     - [ ] Dynamic programming
     - [ ] Backtracking
