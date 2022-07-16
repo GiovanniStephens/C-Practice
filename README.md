@@ -31,7 +31,7 @@
     - [ ] Searching
         - [x] Linear search
         - [x] Binary search
-        - [ ] Jump search
+        - [x] Jump search
         - [ ] Interpolation search
     - [ ] Greedy
     - [ ] Dynamic programming
