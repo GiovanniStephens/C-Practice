@@ -30,7 +30,7 @@
         - [ ] Radix sort
     - [ ] Searching
         - [x] Linear search
-        - [ ] Binary search
+        - [x] Binary search
         - [ ] Jump search
         - [ ] Interpolation search
     - [ ] Greedy
