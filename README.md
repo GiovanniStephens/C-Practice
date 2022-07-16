@@ -29,7 +29,7 @@
         - [x] Count sort
         - [ ] Radix sort
     - [ ] Searching
-        - [ ] Linear search
+        - [x] Linear search
         - [ ] Binary search
         - [ ] Jump search
         - [ ] Interpolation search
