@@ -72,7 +72,7 @@
 - [x] String to int converter
 - [ ] Unit tests
 - [x] Automated code formatting
-- [ ] Automated linting
+- [x] Automated linting
 - [ ] Word2Vec implementation
     - [x] Basic string tokenizer
     - [ ] Feed-forward neural network
