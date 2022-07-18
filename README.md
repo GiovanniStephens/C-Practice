@@ -33,7 +33,10 @@
         - [x] Binary search
         - [x] Jump search
         - [x] Interpolation search
-    - [ ] Greedy
+    - [ ] Greedy algorithms:
+        - [ ] Knapsack problem
+        - [ ] Travelling salesman problem
+        - [ ] Job scheduling problem
     - [ ] Dynamic programming
     - [ ] Backtracking
     - [x] Recursion
