@@ -34,7 +34,7 @@
         - [x] Jump search
         - [x] Interpolation search
     - [ ] Greedy algorithms:
-        - [ ] Knapsack problem
+        - [x] Knapsack problem
         - [ ] Travelling salesman problem
         - [ ] Job scheduling problem
     - [ ] Dynamic programming
