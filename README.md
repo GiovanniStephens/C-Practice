@@ -129,10 +129,12 @@
             - [x] Show the model inerti
         - [x] Implement k-means++
     - [ ] Evolutionary algorithms
+
     - [ ] Neural networks
     - [ ] Support vector machines
     - [ ] Decision trees
     - [ ] Random forests
+    - [ ] XGBoost
     - [ ] Naive Bayes
 - [ ] Finance
     - [ ] Download time series data from Yahoo Finance.
