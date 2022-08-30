@@ -5,7 +5,7 @@
     - [x] Lists/arrays
     - [x] vectors
     - [x] Dictionaries
-- [ ] Data structures from scratch:
+- [x] Data structures from scratch:
     - [x] Queues
     - [x] Stacks
     - [x] Single linked lists
@@ -16,7 +16,7 @@
         - [x] Directed graphs
         - [x] Undirected graphs 
     - [x] Heaps (created in the heap sort, but I might re-implement it to remember.)
-    - [ ] Hash tables
+    - [x] Hash tables
 - [ ] Algorithms:
     - [ ] Sorting
         - [x] Bubble sort
