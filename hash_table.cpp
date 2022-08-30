@@ -18,8 +18,8 @@ class Hash {
     int BUCKETS;
     int size;
     vector<string> *table;
-    int hash(string key);
     int hash2(string key);
+    int hash(string key);
 
     public:
         Hash();
@@ -63,28 +63,35 @@ void Hash::insert(string key) {
         size++;
     } else {
         int index2 = hash2(key);
-        if (table[index2].size() == 0) {
-            table[index2].push_back(key);
-            size++;
-        } else {
-            cout << "Hash table is full" << endl;
-        }
+        table[index2].push_back(key);
+        size++;
     }
 }
 
-void Hash::remove(string key) {
+void Hash::remove(string key){
+    bool removed = false;
     int index = hash(key);
-    if (table[index].size() == 0) {
-        cout << "Error: Key not found" << endl;
+    if (table[index].size() > 0) {
+        for (int i=0; i<table[index].size(); i++) {
+            if (table[index][i] == key) {
+                table[index].erase(table[index].begin()+i);
+                removed = true;
+            }
+        }
+    }
+    if (removed) {
+        return;
     } else {
         int index2 = hash2(key);
-        if (table[index2].size() == 0) {
-            cout << "Error: Key not found" << endl;
-        } else {
-            table[index].erase(table[index].begin());
-            table[index2].erase(table[index2].begin());
-            size--;
+        for (int i=0; i<table[index2].size(); i++) {
+            if (table[index2][i] == key) {
+                table[index2].erase(table[index2].begin()+i);
+                removed = true;
+            }
         }
+    }
+    if (!removed) {
+        cout << "Error: Key not found." << endl;
     }
 }
 
@@ -94,7 +101,7 @@ bool Hash::search(string key) {
         return false;
     } else {
         int index2 = hash2(key);
-        if (table[index2].size() == 0) {
+        if (table[index2].size() == 0 && table[index].size() == 0) {
             return false;
         } else {
             return true;
@@ -115,6 +122,7 @@ void Hash::print() {
 int main() {
     // Add something to the hash table
     Hash hash;
+
     hash.insert("Hello");
     hash.insert("World");
     hash.insert("!");
