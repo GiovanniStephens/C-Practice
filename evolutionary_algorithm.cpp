@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <vector>
+using namespace std;
 
 class EA {
     int population_size;
@@ -13,6 +14,7 @@ class EA {
     float crossover_probability;
     float mutation_probability;
     bool elitism;
+    vector<vector<int>> population;
 
     public:
         EA(int population_size,
@@ -26,6 +28,14 @@ class EA {
             this->mutation_probability = mutation_probability;
             this->elitism = elitism;
            }
+
+        void create_individual(int len){
+            vector<int> individual;
+            for (int i = 0; i < len; i++){
+                individual.push_back(rand() % 2);
+            }
+            population.push_back(individual);
+        }
 };
 
 
