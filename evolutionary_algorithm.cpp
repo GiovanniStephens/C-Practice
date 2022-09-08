@@ -30,6 +30,11 @@ class EA {
            }
 
         void create_individual(int len){
+            /* Creates a random binary vector 
+             * to represent a random gene. 
+             *
+             * Todo: Paralellize this.
+             */
             vector<int> individual;
             for (int i = 0; i < len; i++){
                 individual.push_back(rand() % 2);
